@@ -1,0 +1,8 @@
+from __future__ import absolute_import, division, print_function
+
+
+def main():
+    print('Setup complete')
+
+
+main()
