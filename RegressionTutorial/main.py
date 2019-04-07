@@ -129,7 +129,7 @@ def plot_history(history):
 def plot_predictions(test_labels, test_predictions):
     plt.scatter(test_labels, test_predictions)
     plt.xlabel('True Value [MPG]')
-    plt.xlabel('Predictions [MPG]')
+    plt.ylabel('Predictions [MPG]')
     plt.axis('equal')
     plt.axis('square')
     plt.xlim([0, plt.xlim()[1]])

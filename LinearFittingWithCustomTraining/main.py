@@ -50,7 +50,7 @@ def main():
     experiment = Experiment(api_key=configs['DEFAULT']['COMET_API_KEY'],
                             project_name="general", workspace="tobiasbester")
 
-    learning_rate = 0.01
+    learning_rate = 0.1
     num_epochs = 100
 
     hyper_params = {"num examples": NUM_EXAMPLES,
