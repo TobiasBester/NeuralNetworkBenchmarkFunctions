@@ -1,7 +1,10 @@
 from __future__ import absolute_import, division, print_function
 
+import configparser
+
 import matplotlib.pyplot as plt
 import tensorflow as tf
+from comet_ml import Experiment
 
 # Building and training a model involves a few steps
 # 1. Define the model
@@ -16,7 +19,7 @@ TRUE_b = 2.0
 NUM_EXAMPLES = 1000
 
 
-class Model(object):                    # Step 1
+class Model(object):  # Step 1
 
     def __init__(self):
         # Initialize variable to (5.0, 0.0), although it should be random values
@@ -27,7 +30,7 @@ class Model(object):                    # Step 1
         return self.W * x + self.b
 
 
-def loss(predicted_y, desired_y):       # Step 2
+def loss(predicted_y, desired_y):  # Step 2
     # Mean squared error
     return tf.reduce_mean(tf.square(predicted_y - desired_y))
 
@@ -41,6 +44,19 @@ def train(model, inputs, outputs, learning_rate):
 
 
 def main():
+    configs = configparser.ConfigParser()
+    configs.read('../config/config.properties')
+
+    experiment = Experiment(api_key=configs['DEFAULT']['COMET_API_KEY'],
+                            project_name="general", workspace="tobiasbester")
+
+    learning_rate = 0.01
+    num_epochs = 100
+
+    hyper_params = {"num examples": NUM_EXAMPLES,
+                    "learning_rate": learning_rate,
+                    "num_epochs": num_epochs}
+    experiment.log_parameters(hyper_params)
 
     # Step 3
     print('Obtaining training data')
@@ -68,9 +84,11 @@ def main():
         bs.append(model.b.numpy())
         current_loss = loss(model(inputs), outputs)
 
-        train(model, inputs, outputs, learning_rate=0.05)
+        train(model, inputs, outputs, learning_rate=learning_rate)
         print('Epoch %2d: W=%1.2f b=%1.2f, loss=%2.5f' %
               (epoch, Ws[-1], bs[-1], current_loss))
+        experiment.log_metric("loss", current_loss)
+        experiment.set_step(epoch)
 
     print('Plot the history of W and b')
     plt.plot(epochs, Ws, 'r',
@@ -78,6 +96,9 @@ def main():
     plt.plot([TRUE_W] * len(epochs), 'r--',
              [TRUE_b] * len(epochs), 'b--')
     plt.legend(['W', 'b', 'true W', 'true b'])
+
+    experiment.log_figure(figure_name="History of W and b", figure=plt)
+
     plt.show()
 
 
