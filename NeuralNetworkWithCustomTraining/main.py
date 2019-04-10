@@ -8,7 +8,7 @@ import tensorflow as tf
 from tensorflow.python import keras
 from tensorflow.python.keras import layers
 
-num_epochs = 20
+num_epochs = 50
 num_samples = 250
 learning_rate = 0.05
 range_min = -4.5
@@ -43,11 +43,25 @@ def split_data(dataset, inspect_data=False):
     train_stats = train_dataset.describe()
 
     if inspect_data:
-        sns.pairplot(train_dataset, diag_kind='kde')
+        sns.lmplot(data=train_dataset, x='x', y='y')
         plt.show()
+
+        plot_3d_graph(train_dataset['x'], train_dataset['y'], train_dataset['func'])
+
         print(train_stats)
 
     return train_dataset, test_dataset, train_stats
+
+
+def plot_3d_graph(x, y, func):
+    fig = plt.figure()
+    ax = plt.axes(projection='3d')
+
+    x, y = np.meshgrid(x, y)
+    func = beale_func(x, y)
+
+    graph = ax.plot_surface(x, y, func, linewidth=1)
+    plt.show()
 
 
 def split_features_from_labels(train_dataset, test_dataset):
@@ -89,14 +103,30 @@ def plot_history(history):
     plt.plot(hist['epoch'], hist['val_mae'], label='Validation Error')
     plt.legend()
 
-    plt.figure()
-    plt.xlabel('Epoch')
-    plt.ylabel('Mean Square Error [$Func^2$]')
-    plt.plot(hist['epoch'], hist['mse'], label='Train Error')
-    plt.plot(hist['epoch'], hist['val_mse'], label='Validation Error')
-    plt.legend()
+    # plt.figure()
+    # plt.xlabel('Epoch')
+    # plt.ylabel('Mean Square Error [$Func^2$]')
+    # plt.plot(hist['epoch'], hist['mse'], label='Train Error')
+    # plt.plot(hist['epoch'], hist['val_mse'], label='Validation Error')
+    # plt.legend()
+
+    # plt.figure()
+    # plt.xlabel('Epoch')
+    # plt.ylabel('Loss [Func]')
+    # plt.plot(hist['epoch'], hist['loss'], label='Train Loss')
+    # plt.plot(hist['epoch'], hist['val_loss'], label='Validation Loss')
+    # plt.legend()
 
     plt.show()
+
+    print('Final loss, mae, mse',
+          history.history['loss'][-1],
+          history.history['mae'][-1],
+          history.history['mse'][-1])
+    print('Final validation loss, mae, mse',
+          history.history['val_loss'][-1],
+          history.history['val_mae'][-1],
+          history.history['val_mse'][-1])
 
 
 def plot_predictions(test_labels, test_predictions):
@@ -113,11 +143,10 @@ def main():
     # 1. get dataset
     print('Obtaining training data')
     dataset = generate_dataset()
-    print(dataset)
 
     # 2. clean and split the data
     print('Splitting data')
-    train_dataset, test_dataset, train_stats = split_data(dataset, False)
+    train_dataset, test_dataset, train_stats = split_data(dataset, True)
     train_labels, test_labels = split_features_from_labels(train_dataset, test_dataset)
 
     # 3. build the model
@@ -127,12 +156,13 @@ def main():
 
     # 4. train the model
     print('Training the model')
-    early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', patience=50)
+    early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', patience=10)
     history = model.fit(train_dataset,
                         train_labels,
                         epochs=num_epochs,
                         validation_split=0.2,
-                        verbose=0)
+                        verbose=0,
+                        callbacks=[early_stop])
     print('Plotting history')
     plot_history(history)
 
@@ -140,11 +170,6 @@ def main():
     print('Evaluating the model on the test data')
     loss, mae, mse = model.evaluate(test_dataset, test_labels, verbose=0)
     print('Testing set MAE', mae)
-
-    # 6. record the results
-    print('Making predictions')
-    test_predictions = model.predict(test_dataset).flatten()
-    plot_predictions(test_labels, test_predictions)
 
 
 main()
