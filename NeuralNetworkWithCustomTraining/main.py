@@ -1,5 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
+import configparser
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -9,10 +11,10 @@ from tensorflow.python import keras
 from tensorflow.python.keras import layers
 
 num_epochs = 50
-num_samples = 250
+num_samples = 2500
 learning_rate = 0.05
-range_min = -4.5
-range_max = 4.5
+x_range = (-4.5, 4.5)
+y_range = (-4.5, 4.5)
 
 
 def beale_func(x, y):
@@ -24,9 +26,19 @@ def beale_func(x, y):
     # model = random_xs and random_ys
 
 
-def generate_dataset():
-    x = np.random.uniform(range_min, range_max, num_samples)
-    y = np.random.uniform(range_min, range_max, num_samples)
+def generate_random_dataset():
+    x = np.random.uniform(x_range[0], x_range[1], num_samples)
+    y = np.random.uniform(y_range[0], y_range[1], num_samples)
+    func = beale_func(x, y)
+
+    data = {'x': x, 'y': y, 'func': func}
+
+    return pd.DataFrame().from_dict(data)
+
+
+def generate_regularly_spaced_dataset():
+    x = np.linspace(start=x_range[0], stop=x_range[1], num=num_samples)
+    y = np.linspace(start=y_range[0], stop=y_range[1], num=num_samples)
     func = beale_func(x, y)
 
     data = {'x': x, 'y': y, 'func': func}
@@ -35,18 +47,18 @@ def generate_dataset():
 
 
 def split_data(dataset, inspect_data=False):
-    # train_dataset = sample(set(dataset), floor(len(dataset) * 0.8))
-    # test_dataset = [x for x in dataset if x not in train_dataset]
-    train_dataset = dataset.sample(frac=0.8, random_state=0)
+    train_dataset = dataset.sample(frac=0.75, random_state=0)
     test_dataset = dataset.drop(train_dataset.index)
 
     train_stats = train_dataset.describe()
 
     if inspect_data:
         sns.lmplot(data=train_dataset, x='x', y='y')
+        sns.lmplot(data=train_dataset, x='x', y='func')
+        # experiment.log_figure(figure_name='Training Data Scatter Plot', figure=plt)
         plt.show()
 
-        plot_3d_graph(train_dataset['x'], train_dataset['y'], train_dataset['func'])
+        # plot_3d_graph(train_dataset['x'], train_dataset['y'], train_dataset['func'])
 
         print(train_stats)
 
@@ -61,6 +73,8 @@ def plot_3d_graph(x, y, func):
     func = beale_func(x, y)
 
     graph = ax.plot_surface(x, y, func, linewidth=1)
+    # experiment.log_figure(figure_name="Surface Plot of Generated Data", figure=plt)
+
     plt.show()
 
 
@@ -99,16 +113,20 @@ def plot_history(history):
     plt.figure()
     plt.xlabel('Epoch')
     plt.ylabel('Mean Abs Error [Func]')
+    plt.xlim(left=0, right=50)
+    plt.ylim(top=15000, bottom=0)
     plt.plot(hist['epoch'], hist['mae'], label='Train Error')
     plt.plot(hist['epoch'], hist['val_mae'], label='Validation Error')
     plt.legend()
 
-    # plt.figure()
-    # plt.xlabel('Epoch')
-    # plt.ylabel('Mean Square Error [$Func^2$]')
-    # plt.plot(hist['epoch'], hist['mse'], label='Train Error')
-    # plt.plot(hist['epoch'], hist['val_mse'], label='Validation Error')
-    # plt.legend()
+    plt.figure()
+    plt.xlabel('Epoch')
+    plt.ylabel('Mean Square Error [$Func^2$]')
+    plt.xlim(left=1, right=50)
+    plt.ylim(top=1000000000, bottom=0)
+    plt.plot(hist['epoch'], hist['mse'], label='Train Error')
+    plt.plot(hist['epoch'], hist['val_mse'], label='Validation Error')
+    plt.legend()
 
     # plt.figure()
     # plt.xlabel('Epoch')
@@ -117,13 +135,16 @@ def plot_history(history):
     # plt.plot(hist['epoch'], hist['val_loss'], label='Validation Loss')
     # plt.legend()
 
+    # experiment.log_figure(figure_name="History of MAE", figure=plt)
     plt.show()
 
-    print('Final loss, mae, mse',
+    # experiment.log_metrics(history.history)
+
+    print('Final loss, mae, mse:',
           history.history['loss'][-1],
           history.history['mae'][-1],
           history.history['mse'][-1])
-    print('Final validation loss, mae, mse',
+    print('Final validation loss, mae, mse:',
           history.history['val_loss'][-1],
           history.history['val_mae'][-1],
           history.history['val_mse'][-1])
@@ -140,9 +161,20 @@ def plot_predictions(test_labels, test_predictions):
 
 
 def main():
+    np.random.seed(400)
+    tf.random.set_seed(400)
+
+    hyper_params = {"num_epochs": params['num_epochs'],
+                    "learning_rate": params['learning_rate'],
+                    "function": 'Beale',
+                    "range": '[-4.5, 4.5]',
+                    "optimizer": 'SGD'}
+    # experiment.log_parameters(hyper_params)
+
     # 1. get dataset
     print('Obtaining training data')
-    dataset = generate_dataset()
+    # dataset = generate_regularly_spaced_dataset()
+    dataset = generate_random_dataset()
 
     # 2. clean and split the data
     print('Splitting data')
@@ -169,7 +201,14 @@ def main():
     # 5. evaluate the model
     print('Evaluating the model on the test data')
     loss, mae, mse = model.evaluate(test_dataset, test_labels, verbose=0)
-    print('Testing set MAE', mae)
+    print('Testing set loss, mae, mse:', loss, mae, mse)
 
 
+configs = configparser.ConfigParser()
+configs.read('./config/config.properties')
+params = globals()
+# experiment = Experiment(api_key=configs['DEFAULT']['COMET_API_KEY'],
+#                         project_name="nn-regression-benchmarks",
+#                         workspace="tobiasbester",
+#                         disabled=True)
 main()
