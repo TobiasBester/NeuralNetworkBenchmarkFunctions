@@ -1,35 +1,28 @@
 from __future__ import absolute_import, division, print_function
 
 import configparser
+import Functions.Functions as functions
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
 import tensorflow as tf
+from mpl_toolkits.mplot3d import Axes3D
 from tensorflow.python import keras
 from tensorflow.python.keras import layers
 
 num_epochs = 50
 num_samples = 2500
-learning_rate = 0.05
+learning_rate = 0.001
 x_range = (-4.5, 4.5)
 y_range = (-4.5, 4.5)
-
-
-def beale_func(x, y):
-    return (1.5 - x + x * y) ** 2 + (2.25 - x + x * y ** 2) ** 2 + (2.625 - x + x * y ** 3) ** 2
-    # To get the global minimum of 0, we need to use x, y = 3, 0.5
-    # So true_x and true_y should be 3 and 0.5 respectively
-    # randomly generated xs and ys need to be shaped to the true xs and ys
-    # outputs = beale_func(3, 0.5)
-    # model = random_xs and random_ys
 
 
 def generate_random_dataset():
     x = np.random.uniform(x_range[0], x_range[1], num_samples)
     y = np.random.uniform(y_range[0], y_range[1], num_samples)
-    func = beale_func(x, y)
+    func = functions.beale_func(x, y)
 
     data = {'x': x, 'y': y, 'func': func}
 
@@ -39,7 +32,7 @@ def generate_random_dataset():
 def generate_regularly_spaced_dataset():
     x = np.linspace(start=x_range[0], stop=x_range[1], num=num_samples)
     y = np.linspace(start=y_range[0], stop=y_range[1], num=num_samples)
-    func = beale_func(x, y)
+    func = functions.beale_func(x, y)
 
     data = {'x': x, 'y': y, 'func': func}
 
@@ -53,7 +46,6 @@ def split_data(dataset, inspect_data=False):
     train_stats = train_dataset.describe()
 
     if inspect_data:
-        sns.lmplot(data=train_dataset, x='x', y='y')
         sns.lmplot(data=train_dataset, x='x', y='func')
         # experiment.log_figure(figure_name='Training Data Scatter Plot', figure=plt)
         plt.show()
@@ -70,7 +62,7 @@ def plot_3d_graph(x, y, func):
     ax = plt.axes(projection='3d')
 
     x, y = np.meshgrid(x, y)
-    func = beale_func(x, y)
+    func = functions.beale_func(x, y)
 
     graph = ax.plot_surface(x, y, func, linewidth=1)
     # experiment.log_figure(figure_name="Surface Plot of Generated Data", figure=plt)
@@ -91,7 +83,7 @@ def build_model(train_dataset):
         layers.Dense(1)
     ])
 
-    optimizer = tf.keras.optimizers.SGD(learning_rate)
+    optimizer = tf.keras.optimizers.Adam(learning_rate)
 
     model.compile(loss='mse',
                   optimizer=optimizer,
@@ -122,18 +114,11 @@ def plot_history(history):
     plt.figure()
     plt.xlabel('Epoch')
     plt.ylabel('Mean Square Error [$Func^2$]')
-    plt.xlim(left=1, right=50)
+    plt.xlim(left=0, right=50)
     plt.ylim(top=1000000000, bottom=0)
     plt.plot(hist['epoch'], hist['mse'], label='Train Error')
     plt.plot(hist['epoch'], hist['val_mse'], label='Validation Error')
     plt.legend()
-
-    # plt.figure()
-    # plt.xlabel('Epoch')
-    # plt.ylabel('Loss [Func]')
-    # plt.plot(hist['epoch'], hist['loss'], label='Train Loss')
-    # plt.plot(hist['epoch'], hist['val_loss'], label='Validation Loss')
-    # plt.legend()
 
     # experiment.log_figure(figure_name="History of MAE", figure=plt)
     plt.show()
@@ -154,8 +139,6 @@ def plot_predictions(test_labels, test_predictions):
     plt.scatter(test_labels, test_predictions)
     plt.xlabel('True Value [func]')
     plt.ylabel('Predictions [func]')
-    # plt.axis('equal')
-    # plt.axis('square')
     _ = plt.plot()
     plt.show()
 
