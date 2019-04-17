@@ -14,9 +14,9 @@ from mpl_toolkits.mplot3d import Axes3D
 from tensorflow.python import keras
 from tensorflow.python.keras import layers
 
-num_epochs = 50
+num_epochs = 100
 num_samples = 2500
-learning_rate = 0.05
+learning_rate = 0.1
 benchmark_func, x_range, y_range, func_name = settings.beale()
 optimizer, learning_rate, optimizer_name = settings.sgd_optimizer(learning_rate)
 
@@ -105,8 +105,6 @@ def plot_history(history):
     plt.figure()
     plt.xlabel('Epoch')
     plt.ylabel('Mean Abs Error [Func]')
-    plt.xlim(left=0, right=50)
-    plt.ylim(top=15000, bottom=0)
     plt.plot(hist['epoch'], hist['mae'], label='Train Error')
     plt.plot(hist['epoch'], hist['val_mae'], label='Validation Error')
     plt.legend()
@@ -114,8 +112,6 @@ def plot_history(history):
     plt.figure()
     plt.xlabel('Epoch')
     plt.ylabel('Mean Square Error [$Func^2$]')
-    plt.xlim(left=0, right=50)
-    plt.ylim(top=1000000000, bottom=0)
     plt.plot(hist['epoch'], hist['mse'], label='Train Error')
     plt.plot(hist['epoch'], hist['val_mse'], label='Validation Error')
     plt.legend()
@@ -186,7 +182,8 @@ def main():
     loss, mae, mse = model.evaluate(test_dataset, test_labels, verbose=0)
     print('Testing set loss, mae, mse:', loss, mae, mse)
 
-    f = open("./results/nn_results.txt", "a+")
+    file_name = "../results/%s__nn_results.txt" % func_name
+    f = open(file_name, "a+")
     f.write(
         "===== New Run =====\n"
         "Function %s\n"

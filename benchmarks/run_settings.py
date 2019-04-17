@@ -4,9 +4,16 @@ import tensorflow as tf
 
 def beale():
     x_range = (-4.5, 4.5)
-    y_range = (-4.5, 4.5)
+    y_range = x_range
     func = benchmarks.functions.beale_func
     return func, x_range, y_range, "Beale"
+
+
+def ackley_n2():
+    x_range = (-32, 32)
+    y_range = x_range
+    func = benchmarks.functions.ackley_n2_func
+    return func, x_range, y_range, "Ackley N.2"
 
 
 def sgd_optimizer(learning_rate=0.05):

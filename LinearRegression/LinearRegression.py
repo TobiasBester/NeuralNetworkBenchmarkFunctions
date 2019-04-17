@@ -71,7 +71,8 @@ def main():
     plt.scatter(test_x, test_labels, color='blue')
     plt.plot(test_x, test_predictions, color='red')
 
-    f = open("../results/lr_results.txt", "a+")
+    file_name = "../results/%s__lr_results.txt" % func_name
+    f = open(file_name, "a+")
     f.write(
         "===== New Run =====\n"
         "Function %s\n"
