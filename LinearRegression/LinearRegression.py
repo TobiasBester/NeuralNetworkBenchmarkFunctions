@@ -6,18 +6,17 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-import Functions.Functions as functions
+import benchmarks.run_settings as settings
 
 
 num_samples = 2500
-x_range = (-4.5, 4.5)
-y_range = (-4.5, 4.5)
+benchmark_func, x_range, y_range, func_name = settings.beale()
 
 
 def generate_random_dataset():
     x = np.random.uniform(x_range[0], x_range[1], num_samples)
     y = np.random.uniform(y_range[0], y_range[1], num_samples)
-    func = functions.beale_func(x, y)
+    func = benchmark_func(x, y)
 
     data = {'x': x, 'y': y, 'func': func}
 
@@ -35,7 +34,7 @@ def plot_3d_graph(x, y, func):
     ax = plt.axes(projection='3d')
 
     x, y = np.meshgrid(x, y)
-    func = functions.beale_func(x, y)
+    func = benchmark_func(x, y)
 
     graph = ax.plot_surface(x, y, func, linewidth=1)
     plt.show()
@@ -63,8 +62,7 @@ def main():
     print('Making predictions on test data')
     test_predictions = regr.predict(test_input)
 
-    print('Mean squared error')
-    print(mean_squared_error(y_true=test_labels, y_pred=test_predictions))
+    mse = mean_squared_error(y_true=test_labels, y_pred=test_predictions)
 
     print('STATS')
     test_x = [x[0] for x in test_input]
@@ -72,16 +70,16 @@ def main():
     plot_3d_graph(test_x, test_y, test_labels)
     plt.scatter(test_x, test_labels, color='blue')
     plt.plot(test_x, test_predictions, color='red')
-    # print(test_input, test_labels, test_predictions)
 
-    # Default LR=0.05
-    # Nadam 0.002LR         377723300.0
-    # Adam                  297592220.0
-    # Adam 0.1LR            179083620.0
-    # Adam 0.001LR          179083620.0
-    # SGD 0.1LR             380512320.0
-    # SGD                   380574050.0
-    # Linear Regression     383447678.0
+    f = open("../results/lr_results.txt", "a+")
+    f.write(
+        "===== New Run =====\n"
+        "Function %s\n"
+        "- Results -\n"
+        "Test MSE %.5f\n" %
+        (func_name, mse)
+    )
+    f.close()
 
     plt.show()
 

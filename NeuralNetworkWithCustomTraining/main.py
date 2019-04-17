@@ -1,7 +1,8 @@
 from __future__ import absolute_import, division, print_function
 
 import configparser
-import Functions.Functions as functions
+
+import benchmarks.run_settings as settings
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -9,20 +10,21 @@ import pandas as pd
 import seaborn as sns
 import tensorflow as tf
 from mpl_toolkits.mplot3d import Axes3D
+# from mpl_toolkits.mplot3d import Axes3D
 from tensorflow.python import keras
 from tensorflow.python.keras import layers
 
 num_epochs = 50
 num_samples = 2500
-learning_rate = 0.001
-x_range = (-4.5, 4.5)
-y_range = (-4.5, 4.5)
+learning_rate = 0.05
+benchmark_func, x_range, y_range, func_name = settings.beale()
+optimizer, learning_rate, optimizer_name = settings.sgd_optimizer(learning_rate)
 
 
 def generate_random_dataset():
     x = np.random.uniform(x_range[0], x_range[1], num_samples)
     y = np.random.uniform(y_range[0], y_range[1], num_samples)
-    func = functions.beale_func(x, y)
+    func = benchmark_func(x, y)
 
     data = {'x': x, 'y': y, 'func': func}
 
@@ -32,7 +34,7 @@ def generate_random_dataset():
 def generate_regularly_spaced_dataset():
     x = np.linspace(start=x_range[0], stop=x_range[1], num=num_samples)
     y = np.linspace(start=y_range[0], stop=y_range[1], num=num_samples)
-    func = functions.beale_func(x, y)
+    func = benchmark_func(x, y)
 
     data = {'x': x, 'y': y, 'func': func}
 
@@ -62,7 +64,7 @@ def plot_3d_graph(x, y, func):
     ax = plt.axes(projection='3d')
 
     x, y = np.meshgrid(x, y)
-    func = functions.beale_func(x, y)
+    func = benchmark_func(x, y)
 
     graph = ax.plot_surface(x, y, func, linewidth=1)
     # experiment.log_figure(figure_name="Surface Plot of Generated Data", figure=plt)
@@ -82,8 +84,6 @@ def build_model(train_dataset):
         layers.Dense(4, activation='relu'),
         layers.Dense(1)
     ])
-
-    optimizer = tf.keras.optimizers.Adam(learning_rate)
 
     model.compile(loss='mse',
                   optimizer=optimizer,
@@ -185,6 +185,19 @@ def main():
     print('Evaluating the model on the test data')
     loss, mae, mse = model.evaluate(test_dataset, test_labels, verbose=0)
     print('Testing set loss, mae, mse:', loss, mae, mse)
+
+    f = open("./results/nn_results.txt", "a+")
+    f.write(
+        "===== New Run =====\n"
+        "Function %s\n"
+        "Num epochs %d\n"
+        "Optimizer %s\n"
+        "Learning rate %f\n"
+        "- Results -\n"
+        "Test MSE %.5f\n" %
+        (func_name, num_epochs, optimizer_name, learning_rate, mse)
+    )
+    f.close()
 
 
 configs = configparser.ConfigParser()
