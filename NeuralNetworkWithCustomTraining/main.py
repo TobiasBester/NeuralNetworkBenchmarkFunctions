@@ -16,9 +16,9 @@ from tensorflow.python.keras import layers
 
 num_epochs = 100
 num_samples = 2500
-learning_rate = 0.1
-benchmark_func, x_range, y_range, func_name = settings.beale()
-optimizer, learning_rate, optimizer_name = settings.sgd_optimizer(learning_rate)
+learning_rate = 0.05
+benchmark_func, x_range, y_range, func_name = settings.adjiman()
+optimizer, learning_rate, optimizer_name = settings.adam_optimizer(learning_rate)
 
 
 def generate_random_dataset():

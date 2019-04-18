@@ -16,6 +16,13 @@ def ackley_n2():
     return func, x_range, y_range, "Ackley N.2"
 
 
+def adjiman():
+    x_range = (-1, 2)
+    y_range = (-1, 1)
+    func = benchmarks.functions.adjiman_func
+    return func, x_range, y_range, "Adjiman"
+
+
 def sgd_optimizer(learning_rate=0.05):
     return tf.optimizers.SGD(learning_rate), learning_rate, "SGD"
 

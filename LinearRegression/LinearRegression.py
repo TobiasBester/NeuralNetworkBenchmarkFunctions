@@ -10,7 +10,7 @@ import benchmarks.run_settings as settings
 
 
 num_samples = 2500
-benchmark_func, x_range, y_range, func_name = settings.beale()
+benchmark_func, x_range, y_range, func_name = settings.adjiman()
 
 
 def generate_random_dataset():
