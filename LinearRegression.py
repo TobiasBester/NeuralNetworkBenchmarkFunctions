@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-import benchmarks.run_settings as settings
+import settings.function_params as settings
 
 
 num_samples = 2500
