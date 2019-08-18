@@ -7,7 +7,7 @@ from mpl_toolkits.mplot3d import Axes3D
 from data_util.dataset_group import DatasetGroup
 
 
-def split_data(dataset, benchmark_func, inspect_data=False):
+def split_data_for_nn(dataset, benchmark_func, inspect_data=False):
 
     train_dataset = dataset.sample(frac=0.75)
     test_dataset = dataset.drop(train_dataset.index)
@@ -49,3 +49,21 @@ def split_features_from_labels(train_dataset, test_dataset):
     train_labels = train_dataset.pop('func')
     test_labels = test_dataset.pop('func')
     return train_labels, test_labels
+
+
+def split_data_for_lr(dataset):
+    train_dataset = dataset.sample(frac=0.75)
+    test_dataset = dataset.drop(train_dataset.index)
+
+    train_input = list(zip(train_dataset['x'], train_dataset['y']))
+    train_labels = list(train_dataset['func'])
+
+    test_input = list(zip(test_dataset['x'], test_dataset['y']))
+    test_labels = list(test_dataset['func'])
+
+    return DatasetGroup(
+        train_input,
+        test_input,
+        train_labels,
+        test_labels
+    )

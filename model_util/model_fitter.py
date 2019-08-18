@@ -1,6 +1,3 @@
-from os import path, makedirs
-from datetime import datetime
-
 from tensorflow import keras
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -57,40 +54,3 @@ def evaluate_model(model, test_dataset, test_labels, nn_params, verbose):
     print('Testing set loss, mae, mse:', loss, mae, mse)
 
     return mse
-
-
-def save_results_to_file(nn_params, train_history, test_mse):
-    results_path = '../results'
-    check_directory(results_path)
-
-    file_name = "%s/%s__nn_results.txt" % (results_path, nn_params.function_name)
-
-    f = open(file_name, "a+")
-    f.write(
-        "===== New Run at %s =====\n"
-        "Function: %s\n"
-        "Num epochs: %d\n"
-        "Optimizer: %s\n"
-        "Num. hidden neurons: %d\n"
-        "- Results -\n"
-        "Train MSE: %.5f\n"
-        "Validation MSE: %.5f\n"
-        "Test MSE: %.5f\n" %
-        (
-            datetime.now(),
-            nn_params.function_name,
-            nn_params.num_epochs,
-            nn_params.optimizer_name,
-            nn_params.hidden_neurons,
-            train_history['mse'][-1],
-            train_history['val_mse'][-1],
-            test_mse)
-    )
-    f.close()
-
-    print('Results saved to', file_name)
-
-
-def check_directory(results_path):
-    if not path.exists(results_path):
-        makedirs(results_path)
