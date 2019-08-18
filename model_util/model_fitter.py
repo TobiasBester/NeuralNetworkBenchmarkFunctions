@@ -49,7 +49,7 @@ def try_out_model(model, train_data):
 
 
 def evaluate_model(model, test_dataset, test_labels, nn_params, verbose):
-    loss, mae, mse = model.evaluate(test_dataset, test_labels, verbose)
+    loss, mae, mse = model.evaluate(test_dataset, test_labels, verbose=verbose)
 
     print('Testing set loss, mae, mse:', loss, mae, mse)
 

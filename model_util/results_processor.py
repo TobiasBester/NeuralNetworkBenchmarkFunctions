@@ -9,13 +9,28 @@ def plot_results(dataset_group, test_predictions):
     test_y = [x[1] for x in dataset_group.test_dataset]
 
     plt.scatter(test_x, dataset_group.test_labels, color='blue')
+    plt.xlabel('test x')
+    plt.ylabel('test func')
+    plt.show()
+
     plt.scatter(test_y, dataset_group.test_labels, color='red')
-    plt.plot(test_x, test_predictions, color='blue')
-    plt.plot(test_y, test_predictions, color='red')
+    plt.xlabel('test y')
+    plt.ylabel('test func')
+    plt.show()
+
+    plt.scatter(test_x, test_predictions, color='blue')
+    plt.xlabel('test x')
+    plt.ylabel('predicted test func')
+    plt.show()
+
+    plt.scatter(test_y, test_predictions, color='red')
+    plt.xlabel('test y')
+    plt.ylabel('predicted test func')
+    plt.show()
 
 
 def save_nn_results_to_file(nn_params, train_history, test_mse):
-    results_path = '../results'
+    results_path = './results'
     check_directory(results_path)
 
     file_name = "%s/%s__nn_results.txt" % (results_path, nn_params.function_name)
