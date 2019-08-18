@@ -21,8 +21,22 @@ class NeuralNetworkParameters:
 def parse_function(function):
     if function == 'ackley_n2':
         return function_params.ackley_n2()
+    if function == 'ackley_n3':
+        return function_params.ackley_n3()
     if function == 'adjiman':
         return function_params.adjiman()
     if function == 'beale':
         return function_params.beale()
+    if function == 'bartels_conn':
+        return function_params.bartels_conn()
+    if function == 'bird':
+        return function_params.bird()
+    if function == 'bohachevsky_n1':
+        return function_params.boha_n1()
+    if function == 'bohachevsky_n2':
+        return function_params.boha_n2()
+    if function == 'booth':
+        return function_params.booth()
+    if function == 'brent':
+        return function_params.brent()
     return function_params.ackley_n2()
