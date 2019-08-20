@@ -45,7 +45,7 @@ def save_nn_results_to_file(nn_params, train_history, test_mse):
         "- Results -\n"
         "Train MSE: %.5f\n"
         "Validation MSE: %.5f\n"
-        "Test MSE: %.5f\n" %
+        "Test MSE: %.8f\n" %
         (
             datetime.now(),
             nn_params.function_name,
@@ -74,7 +74,7 @@ def save_lr_results_to_file(lr_params, train_mse, test_mse):
         "Function: %s\n"
         "- Results -\n"
         "Train MSE: %.5f\n"
-        "Test MSE: %.5f\n" %
+        "Test MSE: %.8f\n" %
         (
             datetime.now(),
             lr_params.function_name,
