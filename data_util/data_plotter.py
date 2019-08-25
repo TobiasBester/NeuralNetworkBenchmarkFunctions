@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 import numpy as np
 
-# from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.mplot3d import Axes3D
 
 
@@ -71,11 +70,11 @@ def plot_results(dataset_group, test_predictions):
     plt.show()
 
 
-def save_nn_results_to_file(nn_params, train_history, test_mse):
+def save_nn_results_to_file(nn_params, data_params, train_history, test_mse):
     results_path = './results'
     check_directory(results_path)
 
-    file_name = "%s/%s__nn_results.txt" % (results_path, nn_params.function_name)
+    file_name = "%s/%s__nn_results.txt" % (results_path, data_params.function_name)
 
     f = open(file_name, "a+")
     f.write(
@@ -90,7 +89,7 @@ def save_nn_results_to_file(nn_params, train_history, test_mse):
         "Test MSE: %.8f\n" %
         (
             datetime.now(),
-            nn_params.function_name,
+            data_params.function_name,
             nn_params.num_epochs,
             nn_params.optimizer_name,
             nn_params.hidden_neurons,
@@ -103,11 +102,11 @@ def save_nn_results_to_file(nn_params, train_history, test_mse):
     print('Results saved to', file_name)
 
 
-def save_lr_results_to_file(lr_params, train_mse, test_mse):
+def save_lr_results_to_file(data_params, train_mse, test_mse):
     results_path = './results'
     check_directory(results_path)
 
-    file_name = "%s/%s__lr_results.txt" % (results_path, lr_params.function_name)
+    file_name = "%s/%s__lr_results.txt" % (results_path, data_params.function_name)
 
     f = open(file_name, "a+")
 
@@ -119,7 +118,7 @@ def save_lr_results_to_file(lr_params, train_mse, test_mse):
         "Test MSE: %.8f\n" %
         (
             datetime.now(),
-            lr_params.function_name,
+            data_params.function_name,
             train_mse,
             test_mse)
     )

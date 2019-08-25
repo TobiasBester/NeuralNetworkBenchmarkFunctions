@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import tensorflow as tf
 
 # noinspection PyCompatibility
 from configparser import ConfigParser
@@ -14,8 +15,8 @@ def data_setup():
 
     section = 'DEFAULT'
 
-    # np.random.seed(datagen_config.getint(section, 'random_seed'))
-    # tf.random.set_seed(datagen_config.getint(section, 'random_seed'))
+    np.random.seed(datagen_config.getint(section, 'datagen_seed'))
+    tf.random.set_seed(datagen_config.getint(section, 'datagen_seed'))
 
     return DatasetParameters(
         datagen_config.getint(section, 'datagen_seed'),

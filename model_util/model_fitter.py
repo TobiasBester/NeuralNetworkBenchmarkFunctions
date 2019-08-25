@@ -48,8 +48,8 @@ def try_out_model(model, train_data):
     print(example_result)
 
 
-def evaluate_model(model, test_dataset, test_labels, nn_params, verbose):
-    loss, mae, mse = model.evaluate(test_dataset, test_labels, verbose=verbose)
+def evaluate_model(model, test_dataset, test_labels, show_training_process):
+    loss, mae, mse = model.evaluate(test_dataset, test_labels, verbose=show_training_process)
 
     print('Testing set loss, mae, mse:', loss, mae, mse)
 

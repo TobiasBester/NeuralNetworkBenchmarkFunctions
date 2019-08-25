@@ -1,4 +1,4 @@
-from settings.neural_network_parameters import parse_function
+from settings.dataset_parameters import parse_function
 
 
 class LinearRegressionParameters:

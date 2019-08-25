@@ -1,8 +1,5 @@
 from __future__ import absolute_import, division, print_function
 
-import numpy as np
-import tensorflow as tf
-
 # noinspection PyCompatibility
 from configparser import ConfigParser
 
@@ -38,13 +35,7 @@ def main():
     nn_params = nn_setup()
 
     if data_params.show_true_function:
-        plot_true_function(
-            data_params.x_range,
-            data_params.y_range,
-            data_params.function_definition)
-
-    np.random.seed(data_params.seed)
-    tf.random.set_seed(data_params.seed)
+        plot_true_function(data_params.x_range, data_params.y_range, data_params.function_definition)
 
     print('2. Generating data')
     dataset = generate_random_dataset(
@@ -64,7 +55,7 @@ def main():
     if data_params.save_generated_data:
         save_generated_nn_data_to_file(data_params.function_name, dataset_group)
 
-    # run()
+    test_mse = run(data_params, nn_params, dataset_group)
 
 
 main()
