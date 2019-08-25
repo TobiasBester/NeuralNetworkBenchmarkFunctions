@@ -2,6 +2,48 @@ from os import path, makedirs
 from datetime import datetime
 
 import matplotlib.pyplot as plt
+from matplotlib import cm
+import numpy as np
+
+# from mpl_toolkits.mplot3d import Axes3D
+from mpl_toolkits.mplot3d import Axes3D
+
+
+def plot_true_function(x_range, y_range, benchmark_func):
+    x_step = (np.abs(x_range[0] - x_range[1])) / 2500
+    x = np.arange(x_range[0], x_range[1], x_step)
+
+    y_step = (np.abs(y_range[0] - y_range[1])) / 2500
+    y = np.arange(y_range[0], y_range[1], y_step)
+
+    z = benchmark_func(x, y)
+
+    plot_2d_graph(x, z, 'True function in 2D')
+    plot_3d_graph(x, y, benchmark_func, 'True function in 3D')
+
+
+def plot_2d_graph(x, z, title):
+    plt.scatter(x, z, color='blue')
+    plt.xlabel('x')
+    plt.ylabel('f(x, y)')
+    plt.title(title)
+    plt.show()
+
+
+def plot_3d_graph(x, y, benchmark_func, title):
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+
+    x, y = np.meshgrid(x, y)
+    func = benchmark_func(x, y)
+
+    surface = ax.plot_surface(x, y, func, cmap=cm.coolwarm, linewidth=0, antialiased=False)
+
+    fig.colorbar(surface, shrink=0.5, aspect=5)
+
+    plt.title(title)
+
+    plt.show()
 
 
 def plot_results(dataset_group, test_predictions):

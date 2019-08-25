@@ -7,7 +7,7 @@ import numpy as np
 
 from data_util.data_generator import generate_random_dataset
 from data_util.data_splitter import split_data_for_lr
-from model_util.results_processor import plot_results, save_lr_results_to_file
+from data_util.data_plotter import plot_results, save_lr_results_to_file
 from settings.linear_regression_parameters import LinearRegressionParameters
 
 

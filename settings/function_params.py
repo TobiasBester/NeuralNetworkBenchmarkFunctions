@@ -155,3 +155,31 @@ def exponential():
     y_range = x_range
     func = settings.functions.exponential
     return func, x_range, y_range, "Exponential"
+
+
+def goldstein_price():
+    x_range = (-2, 2)
+    y_range = x_range
+    func = settings.functions.goldstein_price
+    return func, x_range, y_range, "Goldstein-Price"
+
+
+def griewank():
+    x_range = (-600, 600)
+    y_range = x_range
+    func = settings.functions.griewank
+    return func, x_range, y_range, "Griewank"
+
+
+def himmelblau():
+    x_range = (-6, 6)
+    y_range = x_range
+    func = settings.functions.himmelblau
+    return func, x_range, y_range, "Himmelblau"
+
+
+def holder_table():
+    x_range = (-10, 10)
+    y_range = x_range
+    func = settings.functions.holder_table
+    return func, x_range, y_range, "Holder-Table"

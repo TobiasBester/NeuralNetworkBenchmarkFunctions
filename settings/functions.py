@@ -114,3 +114,28 @@ def egg_crate(x, y):
 
 def exponential(x, y):
     return -exp(-0.5 * (x ** 2 + y ** 2))
+
+
+def goldstein_price(x, y):
+    return (1 + (x + y + 1) ** 2 * (19 - (14 * x) + (3 * x ** 2) - 14 * y + (6 * x * y) + (3 * y ** 2))) \
+           * (30 + ((2 * x - 3 * y) ** 2) * (18 - 32 * x + (12 * x ** 2) + 4 * y - (36 * x * y) + (27 * y ** 2)))
+
+
+def griewank(x, y):
+    return 1 + (griewank_sum(x) + griewank_sum(y)) - (griewank_product(x, 1) * griewank_product(y, 2))
+
+
+def griewank_sum(x):
+    return x ** 2 / 4000
+
+
+def griewank_product(x, i):
+    return cos(x / sqrt(i))
+
+
+def himmelblau(x, y):
+    return (x ** 2 + y - 11) ** 2 + (x + y ** 2 - 7) ** 2
+
+
+def holder_table(x, y):
+    return -abs(sin(x) * cos(y) * exp(abs(1 - (sqrt(x ** 2 + y ** 2) / pi))))

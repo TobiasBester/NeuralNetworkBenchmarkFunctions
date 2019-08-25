@@ -3,12 +3,22 @@ from settings import function_params, optimizers
 
 class NeuralNetworkParameters:
 
-    def __init__(self, num_epochs, num_samples, function, optimizer, hidden_neurons):
+    def __init__(self,
+                 num_seeds,
+                 starting_seed,
+                 num_epochs,
+                 hidden_neurons,
+                 optimizer,
+                 show_model_details,
+                 show_training):
+
+        self.num_seeds = num_seeds
+        self.starting_seed = starting_seed
         self.num_epochs = num_epochs
-        self.num_samples = num_samples
-        self.function_definition, self.x_range, self.y_range, self.function_name = parse_function(function)
-        self.optimizer, self.learning_rate, self.optimizer_name = self.parse_optimizer(optimizer)
         self.hidden_neurons = hidden_neurons
+        self.optimizer, self.learning_rate, self.optimizer_name = optimizer
+        self.show_model_details = show_model_details
+        self.show_training = show_training
 
     @staticmethod
     def parse_optimizer(optimizer):
@@ -17,50 +27,15 @@ class NeuralNetworkParameters:
         if optimizer == 'Adam':
             return optimizers.adam_optimizer()
 
-
-def parse_function(function):
-    if function == 'ackley':
-        return function_params.ackley()
-    if function == 'ackley_n2':
-        return function_params.ackley_n2()
-    if function == 'ackley_n3':
-        return function_params.ackley_n3()
-    if function == 'ackley_n4':
-        return function_params.ackley_n4()
-    if function == 'adjiman':
-        return function_params.adjiman()
-    if function == 'alpine_n1':
-        return function_params.alpine_n1()
-    if function == 'alpine_n2':
-        return function_params.alpine_n2()
-    if function == 'beale':
-        return function_params.beale()
-    if function == 'bartels_conn':
-        return function_params.bartels_conn()
-    if function == 'bird':
-        return function_params.bird()
-    if function == 'bohachevsky_n1':
-        return function_params.boha_n1()
-    if function == 'bohachevsky_n2':
-        return function_params.boha_n2()
-    if function == 'booth':
-        return function_params.booth()
-    if function == 'brent':
-        return function_params.brent()
-    if function == 'brown':
-        return function_params.brown()
-    if function == 'bukin_n6':
-        return function_params.bukin_n6()
-    if function == 'cross_in_tray':
-        return function_params.cross_in_tray()
-    if function == 'deckkers_aarts':
-        return function_params.deckkers_arts()
-    if function == 'drop_wave':
-        return function_params.drop_wave()
-    if function == 'easom':
-        return function_params.easom()
-    if function == 'egg_crate':
-        return function_params.egg_crate()
-    if function == 'exponential':
-        return function_params.exponential()
-    return function_params.ackley_n2()
+# TODO: 0) Change main programs for NN and LR to a callable function, so that random seeds can be set
+# a) Increase number of Num Samples
+# TODO: a) Normalize f(x, y) range to [0, 1] or [-10, 10] or whatever
+# TODO: b) Investigate Linear Regression from scikit-learn
+# TODO: b) Set different seeds for neural network runs (up to 10 and then use the Mean MSE)
+# TODO: c) Experiment with Sigmoid in place of ReLU
+# TODO: c) Save sample points for each function somewhere 1/2
+# TODO: c) Look for more functions
+# TODO: d) Set NNMSE/LRMSE to something that falls at 0 if equal
+# TODO: d) Save output to Latex table
+# TODO: e) Plot true surface in 3D
+# TODO: e) Plot true surface against NN predicted surface
