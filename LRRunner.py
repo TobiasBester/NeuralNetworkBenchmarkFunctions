@@ -1,8 +1,9 @@
 from __future__ import absolute_import, division, print_function
 
-from LinearRegression import run
-from data_util.data_generator import data_setup, generate_random_dataset
+from LinearRegression import run_lr
+from data_util.data_generator import generate_random_dataset
 from data_util.data_plotter import plot_true_function
+from data_util.data_setup import data_setup
 from data_util.data_splitter import split_data_for_lr, save_generated_lr_data_to_file
 
 
@@ -31,7 +32,7 @@ def main():
     if data_params.save_generated_data:
         save_generated_lr_data_to_file(data_params.function_name, dataset_group)
 
-    test_mse = run(data_params, dataset_group)
+    train_mse, test_mse = run_lr(data_params, dataset_group)
 
 
 main()

@@ -130,3 +130,17 @@ def save_lr_results_to_file(data_params, train_mse, test_mse):
 def check_directory(results_path):
     if not path.exists(results_path):
         makedirs(results_path)
+
+
+def plot_nn_and_lr_mse(lr_train_mse, lr_test_mse, nn_train_history):
+    plt.xlabel('Epoch')
+    plt.ylabel('Mean Squared Error')
+
+    plt.plot(nn_train_history['mse'], color='green', label='NN Training MSE')
+    plt.plot(nn_train_history['val_mse'], color='navy', label='NN Validation MSE')
+
+    plt.axhline(y=lr_train_mse, color='indianred', label='LR Train MSE')
+    plt.axhline(y=lr_test_mse, color='goldenrod', label='LR Test MSE')
+
+    plt.legend()
+    plt.show()
