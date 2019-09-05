@@ -7,6 +7,8 @@ import numpy as np
 
 from mpl_toolkits.mplot3d import Axes3D
 
+from data_util.data_generator import normalize_data
+
 
 def plot_true_function(x_range, y_range, benchmark_func):
     x_step = (np.abs(x_range[0] - x_range[1])) / 2500
@@ -18,15 +20,15 @@ def plot_true_function(x_range, y_range, benchmark_func):
     z = benchmark_func(x, y)
 
     plot_2d_graph(x, z, 'True function in 2D')
+    plt.show()
     plot_3d_graph(x, y, benchmark_func, 'True function in 3D')
 
 
-def plot_2d_graph(x, z, title):
-    plt.scatter(x, z, color='blue')
+def plot_2d_graph(x, z, title='', color='blue'):
+    plt.scatter(x, z, color=color)
     plt.xlabel('x')
     plt.ylabel('f(x, y)')
     plt.title(title)
-    plt.show()
 
 
 def plot_3d_graph(x, y, benchmark_func, title):
@@ -45,28 +47,18 @@ def plot_3d_graph(x, y, benchmark_func, title):
     plt.show()
 
 
-def plot_results(dataset_group, test_predictions):
-    test_x = [x[0] for x in dataset_group.test_dataset]
-    test_y = [x[1] for x in dataset_group.test_dataset]
+def plot_2d_predicted_vs_true(train_dataset, train_predictions, function_def):
+    generated_x = [a[0] for a in train_dataset]
+    generated_y = [a[1] for a in train_dataset]
+    true_fitness = np.array([function_def(x, y) for (x, y) in train_dataset])
+    normed_true_fitness = normalize_data(true_fitness)
 
-    plt.scatter(test_x, dataset_group.test_labels, color='blue')
-    plt.xlabel('test x')
-    plt.ylabel('test func')
+    plot_2d_graph(generated_x, train_predictions, color='red')
+    plot_2d_graph(generated_x, normed_true_fitness, 'Predicted f(x) (R) vs Actual f(x) (G)', 'green')
     plt.show()
 
-    plt.scatter(test_y, dataset_group.test_labels, color='red')
-    plt.xlabel('test y')
-    plt.ylabel('test func')
-    plt.show()
-
-    plt.scatter(test_x, test_predictions, color='blue')
-    plt.xlabel('test x')
-    plt.ylabel('predicted test func')
-    plt.show()
-
-    plt.scatter(test_y, test_predictions, color='red')
-    plt.xlabel('test y')
-    plt.ylabel('predicted test func')
+    plot_2d_graph(generated_y, train_predictions, color='red')
+    plot_2d_graph(generated_y, normed_true_fitness, 'Predicted f(y) (R) vs Actual f(y) (G)', 'green')
     plt.show()
 
 

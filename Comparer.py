@@ -23,8 +23,7 @@ def compare():
         data_params.x_range,
         data_params.y_range,
         data_params.num_samples,
-        data_params.function_definition,
-        data_params.function_name
+        data_params.function_definition
     )
 
     print('== Splitting data ==')

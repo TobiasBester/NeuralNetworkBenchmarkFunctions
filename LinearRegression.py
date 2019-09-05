@@ -1,7 +1,7 @@
 from sklearn import linear_model
 from sklearn.metrics import mean_squared_error
 
-from data_util.data_plotter import save_lr_results_to_file
+from data_util.data_plotter import save_lr_results_to_file, plot_2d_predicted_vs_true
 
 
 def run_lr(
@@ -25,6 +25,9 @@ def run_lr(
     test_mse = mean_squared_error(y_true=dataset_group.test_labels, y_pred=test_predictions)
     print("Train MSE:", train_mse)
     print("TEST MSE:", test_mse)
+
+    if data_params.show_predicted_vs_true:
+        plot_2d_predicted_vs_true(dataset_group.train_dataset, train_predictions, data_params.function_definition)
 
     print('== Saving results to file ==')
     save_lr_results_to_file(data_params, train_mse, test_mse)
