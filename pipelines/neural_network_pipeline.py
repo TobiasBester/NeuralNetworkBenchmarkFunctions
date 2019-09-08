@@ -12,9 +12,6 @@ def run_nn(
         dataset_group
 ):
 
-    # NN
-    # 9 Show predicted model on test data - plot it separately and over x-y-z
-
     print('=== Undergoing Neural Network Training Process for', data_params.function_name)
 
     np.random.seed(nn_params.starting_seed)

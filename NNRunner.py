@@ -1,9 +1,10 @@
 from __future__ import absolute_import, division, print_function
 
-from NeuralNetwork import run_nn
+from pipelines.neural_network_pipeline import run_nn
 from data_util.data_plotter import plot_true_function
+from data_util.data_saver import save_generated_nn_data_to_file
 from data_util.data_setup import nn_setup, data_setup
-from data_util.data_splitter import split_data_for_nn, save_generated_nn_data_to_file
+from data_util.data_splitter import split_data_for_nn
 
 from data_util.data_generator import generate_random_dataset
 
@@ -39,10 +40,9 @@ def main():
 main()
 
 # TODO: a) Increase number of hidden neurons
-# TODO: a) Change Compare runner to use updated Runners
 # TODO: b) Investigate Linear Regression from scikit-learn
 # TODO: b) Set different seeds for neural network runs (up to 10 and then use the Mean MSE)
 # TODO: c) Look for more functions
-# TODO: d) Set NNMSE/LRMSE to something that falls at 0 if equal (in Excel)
-# TODO: d) Save output to Latex table
+# TODO: d) Deal with insufficient samples for functions like Easom
+# TODO: d) With Latex producer, sort alphabetically and remove duplicate functions
 # TODO: e) Plot true surface against NN predicted surface

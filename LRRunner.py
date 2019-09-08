@@ -1,10 +1,11 @@
 from __future__ import absolute_import, division, print_function
 
-from LinearRegression import run_lr
+from pipelines.linear_regression_pipeline import run_lr
 from data_util.data_generator import generate_random_dataset
 from data_util.data_plotter import plot_true_function
+from data_util.data_saver import save_generated_lr_data_to_file
 from data_util.data_setup import data_setup
-from data_util.data_splitter import split_data_for_lr, save_generated_lr_data_to_file
+from data_util.data_splitter import split_data_for_lr
 
 
 def main():

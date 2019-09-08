@@ -1,11 +1,12 @@
 from __future__ import absolute_import, division, print_function
 
-from LinearRegression import run_lr
-from NeuralNetwork import run_nn
+from pipelines.linear_regression_pipeline import run_lr
+from pipelines.neural_network_pipeline import run_nn
 from data_util.data_generator import generate_random_dataset
 from data_util.data_plotter import plot_true_function, plot_nn_and_lr_mse
+from data_util.data_saver import save_generated_nn_data_to_file, save_combined_results_to_file
 from data_util.data_setup import data_setup, nn_setup
-from data_util.data_splitter import split_data_for_lr, split_data_for_nn, save_generated_nn_data_to_file
+from data_util.data_splitter import split_data_for_lr, split_data_for_nn
 
 
 def compare():
@@ -43,13 +44,17 @@ def compare():
     lr_train_mse, lr_test_mse = run_lr(data_params, lr_dataset_group)
     nn_test_mse, nn_train_history = run_nn(data_params, nn_params, nn_dataset_group)
 
-    plot_nn_and_lr_mse(lr_train_mse, lr_test_mse, nn_train_history)
-
     mse_index = lr_test_mse / nn_test_mse - 1
 
-    print('LR vs NN Test MSE: LR {} vs  NN {}'.format(lr_test_mse, nn_test_mse))
+    save_combined_results_to_file(data_params.function_name, nn_test_mse, lr_test_mse, mse_index)
+
+    plot_nn_and_lr_mse(lr_train_mse, lr_test_mse, nn_train_history)
+
+    print('Test MSEs: LR =', lr_test_mse, 'vs NN =', nn_test_mse)
     print('MSE Index:', mse_index)
     print('LR performed better' if mse_index < 0 else 'NN performed better')
+
+    print('Comparer Program Completed')
 
 
 compare()

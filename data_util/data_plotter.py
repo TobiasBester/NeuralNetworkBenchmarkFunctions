@@ -1,4 +1,3 @@
-from os import path, makedirs
 from datetime import datetime
 
 import matplotlib.pyplot as plt
@@ -8,6 +7,7 @@ import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 
 from data_util.data_generator import normalize_data
+from data_util.data_saver import check_directory
 
 
 def plot_true_function(x_range, y_range, benchmark_func):
@@ -63,7 +63,7 @@ def plot_2d_predicted_vs_true(train_dataset, train_predictions, function_def):
 
 
 def save_nn_results_to_file(nn_params, data_params, train_history, test_mse):
-    results_path = './results'
+    results_path = './results/nn_results'
     check_directory(results_path)
 
     file_name = "%s/%s__nn_results.txt" % (results_path, data_params.function_name)
@@ -95,7 +95,7 @@ def save_nn_results_to_file(nn_params, data_params, train_history, test_mse):
 
 
 def save_lr_results_to_file(data_params, train_mse, test_mse):
-    results_path = './results'
+    results_path = './results/lr_results'
     check_directory(results_path)
 
     file_name = "%s/%s__lr_results.txt" % (results_path, data_params.function_name)
@@ -117,11 +117,6 @@ def save_lr_results_to_file(data_params, train_mse, test_mse):
     f.close()
 
     print('Results saved to', file_name)
-
-
-def check_directory(results_path):
-    if not path.exists(results_path):
-        makedirs(results_path)
 
 
 def plot_nn_and_lr_mse(lr_train_mse, lr_test_mse, nn_train_history):

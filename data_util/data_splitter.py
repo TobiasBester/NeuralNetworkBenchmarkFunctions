@@ -1,5 +1,5 @@
 from data_util.dataset_group import DatasetGroup
-from data_util.data_plotter import plot_3d_graph, check_directory
+from data_util.data_plotter import plot_3d_graph
 
 
 def split_data_for_nn(dataset, benchmark_func, show_generated_data=True):
@@ -46,64 +46,3 @@ def split_data(dataset, benchmark_func, show_generated_data=True):
         print(train_stats)
 
     return train_dataset, test_dataset
-
-
-def save_generated_nn_data_to_file(function_name, dataset_group):
-    data_path = './generated_data'
-    check_directory(data_path)
-
-    file_name = "%s/%s__data.txt" % (data_path, function_name)
-
-    f = open(file_name, "w+")
-    f.write("Training Set\n")
-
-    save_generated_data_to_file(
-        list(dataset_group.train_dataset['x']),
-        list(dataset_group.train_dataset['y']),
-        list(dataset_group.train_labels),
-        f)
-
-    f.write("Test Set\n")
-    save_generated_data_to_file(
-        list(dataset_group.test_dataset['x']),
-        list(dataset_group.test_dataset['y']),
-        list(dataset_group.test_labels),
-        f)
-
-    print("Saved generated data to", file_name)
-
-    f.close()
-
-
-def save_generated_lr_data_to_file(function_name, dataset_group):
-    data_path = './generated_data'
-    check_directory(data_path)
-
-    file_name = "%s/%s__data.txt" % (data_path, function_name)
-
-    f = open(file_name, "w+")
-    f.write("Training Set\n")
-
-    save_generated_data_to_file(
-        [x for (x, y) in dataset_group.train_dataset],
-        [y for (x, y) in dataset_group.train_dataset],
-        dataset_group.train_labels,
-        f)
-
-    f.write("Test Set\n")
-    save_generated_data_to_file(
-        [x for (x, y) in dataset_group.test_dataset],
-        [y for (x, y) in dataset_group.test_dataset],
-        list(dataset_group.test_labels),
-        f)
-
-    print("Saved generated data to", file_name)
-
-    f.close()
-
-
-def save_generated_data_to_file(x, y, func, f):
-    f.write("x    y    f(x, y)\n")
-
-    for i in range(0, len(x)):
-        f.write("%s %s %s\n" % (x[i], y[i], func[i]))
