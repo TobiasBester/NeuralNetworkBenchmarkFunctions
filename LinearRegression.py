@@ -14,7 +14,7 @@ def run_lr(
     print('== Creating Linear Regression Model ==')
     regr = linear_model.LinearRegression()
 
-    print('== Fitting training data to model ==')
+    print('== Fitting training data to LR model ==')
     regr.fit(dataset_group.train_dataset, dataset_group.train_labels)
 
     print('== Making predictions on training and test data ==')
@@ -29,7 +29,7 @@ def run_lr(
     if data_params.show_predicted_vs_true:
         plot_2d_predicted_vs_true(dataset_group.train_dataset, train_predictions, data_params.function_definition)
 
-    print('== Saving results to file ==')
+    print('== Saving LR results to file ==')
     save_lr_results_to_file(data_params, train_mse, test_mse)
 
     return train_mse, test_mse

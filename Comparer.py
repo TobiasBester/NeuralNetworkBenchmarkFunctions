@@ -45,5 +45,11 @@ def compare():
 
     plot_nn_and_lr_mse(lr_train_mse, lr_test_mse, nn_train_history)
 
+    mse_index = lr_test_mse / nn_test_mse - 1
+
+    print('LR vs NN Test MSE: LR {} vs  NN {}'.format(lr_test_mse, nn_test_mse))
+    print('MSE Index:', mse_index)
+    print('LR performed better' if mse_index < 0 else 'NN performed better')
+
 
 compare()

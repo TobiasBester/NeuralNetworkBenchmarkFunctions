@@ -21,8 +21,7 @@ def main():
         data_params.x_range,
         data_params.y_range,
         data_params.num_samples,
-        data_params.function_definition,
-        data_params.function_name
+        data_params.function_definition
     )
 
     print('== Splitting data ==')
@@ -41,7 +40,6 @@ main()
 
 # TODO: a) Increase number of hidden neurons
 # TODO: a) Change Compare runner to use updated Runners
-# TODO: a) Normalize f(x, y) range to [0, 1] or [-10, 10] or whatever
 # TODO: b) Investigate Linear Regression from scikit-learn
 # TODO: b) Set different seeds for neural network runs (up to 10 and then use the Mean MSE)
 # TODO: c) Look for more functions

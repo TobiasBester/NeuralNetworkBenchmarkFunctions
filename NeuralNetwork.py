@@ -20,7 +20,7 @@ def run_nn(
     np.random.seed(nn_params.starting_seed)
     tf.random.set_seed(nn_params.starting_seed)
 
-    print('== Building the model ==')
+    print('== Building the NN model ==')
     model = build_model(
         dataset_group.train_dataset,
         nn_params.optimizer,
@@ -30,7 +30,7 @@ def run_nn(
 
     # try_out_model(model, dataset_group.train_dataset)
 
-    print('== Training the model ==')
+    print('== Training the NN model ==')
     train_history = fit_model(
         model,
         dataset_group.train_dataset,
@@ -39,7 +39,7 @@ def run_nn(
         show_history=nn_params.show_training
     )
 
-    print('== Evaluating the model on the test data ==')
+    print('== Evaluating the NN model on the test data ==')
     test_mse = evaluate_model(
         model,
         dataset_group.test_dataset,
@@ -48,7 +48,7 @@ def run_nn(
 
     print('TEST MSE:', test_mse)
 
-    print('== Saving results to text file ==')
+    print('== Saving NN results to text file ==')
     save_nn_results_to_file(nn_params, data_params, train_history, test_mse)
 
     return test_mse, train_history
