@@ -40,7 +40,6 @@ def main():
 main()
 
 # TODO: a) Increase number of hidden neurons
-# TODO: b) Investigate Linear Regression from scikit-learn
 # TODO: b) Set different seeds for neural network runs (up to 10 and then use the Mean MSE)
 # TODO: c) Look for more functions
 # TODO: d) Deal with insufficient samples for functions like Easom
