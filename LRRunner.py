@@ -9,13 +9,15 @@ from data_util.data_splitter import split_data_for_lr
 
 
 def main():
-    print('1. Setting up Linear Regression runner')
+    print('== Setting up Linear Regression runner')
     data_params = data_setup()
+
+    print('== Objective Function:', data_params.function_name)
 
     if data_params.show_true_function:
         plot_true_function(data_params.x_range, data_params.y_range, data_params.function_definition)
 
-    print('2. Generating data')
+    print('== Generating data')
     dataset = generate_random_dataset(
         data_params.x_range,
         data_params.y_range,
@@ -23,7 +25,7 @@ def main():
         data_params.function_definition
     )
 
-    print('3. Splitting data')
+    print('== Splitting data')
     dataset_group = split_data_for_lr(
         dataset,
         data_params.function_definition,

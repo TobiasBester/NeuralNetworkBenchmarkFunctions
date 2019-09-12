@@ -9,13 +9,14 @@ import tensorflow as tf
 def run_nn(
         data_params,
         nn_params,
-        dataset_group
+        dataset_group,
+        seed
 ):
 
-    print('=== Undergoing Neural Network Training Process for', data_params.function_name)
+    print('=== Undergoing Neural Network Training Process with seed', seed)
 
-    np.random.seed(nn_params.starting_seed)
-    tf.random.set_seed(nn_params.starting_seed)
+    np.random.seed(seed)
+    tf.random.set_seed(seed)
 
     print('== Building the NN model ==')
     model = build_model(
@@ -43,9 +44,9 @@ def run_nn(
         dataset_group.test_labels,
         nn_params.show_training)
 
-    print('TEST MSE:', test_mse)
-
     print('== Saving NN results to text file ==')
-    save_nn_results_to_file(nn_params, data_params, train_history, test_mse)
+    save_nn_results_to_file(nn_params, data_params, train_history['mse'][-1], test_mse)
+
+    print('TEST MSE:', test_mse)
 
     return test_mse, train_history

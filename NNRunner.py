@@ -1,5 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
+import numpy as np
+
 from pipelines.neural_network_pipeline import run_nn
 from data_util.data_plotter import plot_true_function
 from data_util.data_saver import save_generated_nn_data_to_file
@@ -13,6 +15,8 @@ def main():
     print('== Setting up Neural Network runner ==')
     data_params = data_setup()
     nn_params = nn_setup()
+
+    print('== Objective Function:', data_params.function_name)
 
     if data_params.show_true_function:
         plot_true_function(data_params.x_range, data_params.y_range, data_params.function_definition)
@@ -34,13 +38,20 @@ def main():
     if data_params.save_generated_data:
         save_generated_nn_data_to_file(data_params.function_name, dataset_group)
 
-    test_mse, train_history = run_nn(data_params, nn_params, dataset_group)
+    test_mse_history = []
+
+    for idx, seed in enumerate(range(nn_params.starting_seed, nn_params.starting_seed + nn_params.num_seeds)):
+        print('\nNN', idx)
+        test_mse, train_history = run_nn(data_params, nn_params, dataset_group, seed)
+
+        test_mse_history.append(test_mse)
+
+    print('\nAverage Test MSE:', np.mean(np.array(test_mse_history)))
 
 
 main()
 
 # TODO: a) Increase number of hidden neurons
-# TODO: b) Set different seeds for neural network runs (up to 10 and then use the Mean MSE)
 # TODO: c) Look for more functions
 # TODO: d) Deal with insufficient samples for functions like Easom
 # TODO: d) With Latex producer, sort alphabetically and remove duplicate functions

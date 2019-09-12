@@ -1,5 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
+import numpy as np
+
 from pipelines.linear_regression_pipeline import run_lr
 from pipelines.neural_network_pipeline import run_nn
 from data_util.data_generator import generate_random_dataset
@@ -10,8 +12,11 @@ from data_util.data_splitter import split_data_for_lr, split_data_for_nn
 
 
 def compare():
-    print('== Setting up Data ==')
+    print('COMPARING METHODS')
+
     data_params = data_setup()
+
+    print('== Objective function:', data_params.function_name)
 
     print('== Setting up Neural Network ==')
     nn_params = nn_setup()
@@ -42,19 +47,27 @@ def compare():
         save_generated_nn_data_to_file(data_params.function_name, nn_dataset_group)
 
     lr_train_mse, lr_test_mse = run_lr(data_params, lr_dataset_group)
-    nn_test_mse, nn_train_history = run_nn(data_params, nn_params, nn_dataset_group)
 
-    mse_index = lr_test_mse / nn_test_mse - 1
+    test_mse_history = []
+    for idx, seed in enumerate(range(nn_params.starting_seed, nn_params.starting_seed + nn_params.num_seeds)):
+        print('\nNN', idx)
+        nn_test_mse, nn_train_history = run_nn(data_params, nn_params, nn_dataset_group, seed)
 
-    save_combined_results_to_file(data_params.function_name, nn_test_mse, lr_test_mse, mse_index)
+        if data_params.show_predicted_vs_true:
+            plot_nn_and_lr_mse(lr_train_mse, lr_test_mse, nn_train_history)
+        test_mse_history.append(nn_test_mse)
 
-    plot_nn_and_lr_mse(lr_train_mse, lr_test_mse, nn_train_history)
+    average_nn_test_mse = np.mean(np.array(test_mse_history))
 
-    print('Test MSEs: LR =', lr_test_mse, 'vs NN =', nn_test_mse)
+    mse_index = lr_test_mse / average_nn_test_mse - 1
+
+    save_combined_results_to_file(data_params.function_name, average_nn_test_mse, lr_test_mse, mse_index)
+
+    print('\nTest MSEs: LR =', lr_test_mse, 'vs NN =', average_nn_test_mse)
     print('MSE Index:', mse_index)
     print('LR performed better' if mse_index < 0 else 'NN performed better')
 
-    print('Comparer Program Completed')
+    print('\nComparer Program Completed')
 
 
 compare()

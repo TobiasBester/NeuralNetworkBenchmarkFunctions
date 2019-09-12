@@ -62,7 +62,7 @@ def plot_2d_predicted_vs_true(train_dataset, train_predictions, function_def):
     plt.show()
 
 
-def save_nn_results_to_file(nn_params, data_params, train_history, test_mse):
+def save_nn_results_to_file(nn_params, data_params, train_mse, test_mse):
     results_path = './results/nn_results'
     check_directory(results_path)
 
@@ -77,7 +77,6 @@ def save_nn_results_to_file(nn_params, data_params, train_history, test_mse):
         "Num. hidden neurons: %d\n"
         "- Results -\n"
         "Train MSE: %.5f\n"
-        "Validation MSE: %.5f\n"
         "Test MSE: %.8f\n" %
         (
             datetime.now(),
@@ -85,8 +84,7 @@ def save_nn_results_to_file(nn_params, data_params, train_history, test_mse):
             nn_params.num_epochs,
             nn_params.optimizer_name,
             nn_params.hidden_neurons,
-            train_history['mse'][-1],
-            train_history['val_mse'][-1],
+            train_mse,
             test_mse)
     )
     f.close()
