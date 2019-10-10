@@ -11,7 +11,7 @@ from data_util.data_setup import data_setup, nn_setup
 from data_util.data_splitter import split_data_for_lr, split_data_for_nn
 
 
-def compare():
+if __name__ == '__main__':
     print('COMPARING METHODS')
 
     data_params = data_setup()
@@ -58,16 +58,20 @@ def compare():
         test_mse_history.append(nn_test_mse)
 
     average_nn_test_mse = np.mean(np.array(test_mse_history))
+    stdev_nn_test_mse = np.std(np.array(test_mse_history))
 
     mse_index = lr_test_mse / average_nn_test_mse - 1
 
-    save_combined_results_to_file(data_params.function_name, average_nn_test_mse, lr_test_mse, mse_index)
+    save_combined_results_to_file(
+        data_params.function_name,
+        average_nn_test_mse,
+        stdev_nn_test_mse,
+        lr_test_mse,
+        mse_index
+    )
 
-    print('\nTest MSEs: LR =', lr_test_mse, 'vs NN =', average_nn_test_mse)
+    print('\nTest MSEs: LR = {} vs NN = {} ~ {}'.format(lr_test_mse, average_nn_test_mse, stdev_nn_test_mse))
     print('MSE Index:', mse_index)
     print('LR performed better' if mse_index < 0 else 'NN performed better')
 
     print('\nComparer Program Completed')
-
-
-compare()

@@ -8,5 +8,5 @@ setup(
     license='',
     author='tbester',
     author_email='tbester23@gmail.com',
-    description=''
+    description='', install_requires=['numpy', 'tensorflow', 'scikit-learn', 'matplotlib', 'pandas', 'pylatex']
 )

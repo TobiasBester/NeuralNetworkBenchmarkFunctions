@@ -47,12 +47,12 @@ def main():
         test_mse_history.append(test_mse)
 
     print('\nAverage Test MSE:', np.mean(np.array(test_mse_history)))
+    print('\nStdev Test MSE:', np.std(np.array(test_mse_history)))
 
 
 main()
 
-# TODO: a) Increase number of hidden neurons
 # TODO: c) Look for more functions
-# TODO: d) Deal with insufficient samples for functions like Easom
+# TODO: d) Deal with insufficient samples for functions like Easom - Don't use these
 # TODO: d) With Latex producer, sort alphabetically and remove duplicate functions
 # TODO: e) Plot true surface against NN predicted surface
