@@ -14,6 +14,8 @@ from data_util.data_splitter import split_data_for_lr, split_data_for_nn
 if __name__ == '__main__':
     print('COMPARING METHODS')
 
+    # warmup_gpu()
+
     data_params = data_setup()
 
     print('== Objective function:', data_params.function_name)
