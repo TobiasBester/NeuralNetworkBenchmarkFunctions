@@ -11,7 +11,7 @@ def build_model(train_dataset, optimizer, hidden_neurons, show_summary=False):
     model.compile(loss='mse',
                   optimizer=optimizer,
                   metrics=['mae', 'mse'])
-    # -0.00731060634566405
+
     if show_summary:
         print(model.summary())
 

@@ -1,4 +1,4 @@
-from data_util.data_plotter import save_nn_results_to_file
+from data_util.data_plotter import save_nn_results_to_file, plot_3d_predicted_vs_true
 from model_util.model_builder import build_model
 from model_util.model_fitter import fit_model, evaluate_model
 
@@ -46,6 +46,14 @@ def run_nn(
 
     print('== Saving NN results to text file ==')
     save_nn_results_to_file(nn_params, data_params, train_history['mse'][-1], test_mse)
+
+    if data_params.show_predicted_vs_true:
+        test_preds = model.predict(dataset_group.test_dataset)
+        test_x = dataset_group.test_dataset['x'].to_numpy()
+        test_y = dataset_group.test_dataset['y'].to_numpy()
+        test_true = dataset_group.test_labels.to_numpy()
+
+        plot_3d_predicted_vs_true(test_x, test_y, test_preds, test_true, 'Test Data: NN Preds(R) vs True(G)')
 
     print('TEST MSE:', test_mse)
 

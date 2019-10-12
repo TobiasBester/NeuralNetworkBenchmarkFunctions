@@ -53,5 +53,3 @@ def main():
 main()
 
 # TODO: c) Look for more functions
-# TODO: d) Deal with insufficient samples for functions like Easom - Don't use these
-# TODO: e) Plot true surface against NN predicted surface

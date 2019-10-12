@@ -1,14 +1,15 @@
+import numpy as np
 from sklearn import linear_model
 from sklearn.metrics import mean_squared_error
 
-from data_util.data_plotter import save_lr_results_to_file, plot_2d_predicted_vs_true
+from data_util.data_generator import normalize_data
+from data_util.data_plotter import save_lr_results_to_file, plot_2d_predicted_vs_true, plot_3d_predicted_vs_true
 
 
 def run_lr(
         data_params,
         dataset_group
 ):
-
     print('Undergoing Neural Network Training Process for', data_params.function_name)
 
     print('== Creating Linear Regression Model ==')
@@ -27,7 +28,14 @@ def run_lr(
     print("TEST MSE:", test_mse)
 
     if data_params.show_predicted_vs_true:
-        plot_2d_predicted_vs_true(dataset_group.train_dataset, train_predictions, data_params.function_definition)
+        generated_x = [a[0] for a in dataset_group.test_dataset]
+        generated_y = [a[1] for a in dataset_group.test_dataset]
+        true_fitness = np.array([data_params.function_definition(x, y) for (x, y) in dataset_group.test_dataset])
+        normed_true_fitness = normalize_data(true_fitness)
+
+        plot_2d_predicted_vs_true(generated_x, generated_y, test_predictions, normed_true_fitness)
+        plot_3d_predicted_vs_true(generated_x, generated_y, test_predictions, normed_true_fitness,
+                                  'Test Data: LR Preds(R) vs True(G)')
 
     print('== Saving LR results to file ==')
     save_lr_results_to_file(data_params, train_mse, test_mse)

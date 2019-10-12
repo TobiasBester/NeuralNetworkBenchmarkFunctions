@@ -34,7 +34,7 @@ def split_data_for_lr(dataset, benchmark_func, show_generated_data=True):
 
 
 def split_data(dataset, benchmark_func, show_generated_data=True):
-    train_dataset = dataset.sample(frac=0.75)
+    train_dataset = dataset.sample(frac=0.75, random_state=123)
     test_dataset = dataset.drop(train_dataset.index)
 
     train_stats = train_dataset.describe()

@@ -6,7 +6,6 @@ import numpy as np
 
 from mpl_toolkits.mplot3d import Axes3D
 
-from data_util.data_generator import normalize_data
 from data_util.data_saver import check_directory
 
 
@@ -47,18 +46,32 @@ def plot_3d_graph(x, y, benchmark_func, title):
     plt.show()
 
 
-def plot_2d_predicted_vs_true(train_dataset, train_predictions, function_def):
-    generated_x = [a[0] for a in train_dataset]
-    generated_y = [a[1] for a in train_dataset]
-    true_fitness = np.array([function_def(x, y) for (x, y) in train_dataset])
-    normed_true_fitness = normalize_data(true_fitness)
+def plot_2d_predicted_vs_true(x, y, predictions, true):
 
-    plot_2d_graph(generated_x, train_predictions, color='red')
-    plot_2d_graph(generated_x, normed_true_fitness, 'Predicted f(x) (R) vs Actual f(x) (G)', 'green')
+    plot_2d_graph(x, predictions, color='red')
+    plot_2d_graph(x, true, 'Predicted f(x) (R) vs Actual f(x) (G)', 'green')
     plt.show()
 
-    plot_2d_graph(generated_y, train_predictions, color='red')
-    plot_2d_graph(generated_y, normed_true_fitness, 'Predicted f(y) (R) vs Actual f(y) (G)', 'green')
+    plot_2d_graph(y, predictions, color='red')
+    plot_2d_graph(y, true, 'Predicted f(y) (R) vs Actual f(y) (G)', 'green')
+    plt.show()
+
+
+def plot_3d_predicted_vs_true(x, y, predictions, true, title='Predicted function (R) vs True function (G)'):
+
+    fig = plt.figure()
+    ax = fig.add_subplot(projection='3d')
+    ax.scatter(x, y, predictions, color='red')
+    ax.set_xlabel('x')
+    ax.set_ylabel('y')
+    ax.set_zlabel('f(x, y)')
+
+    ax.scatter(x, y, true, color='green', marker='^')
+    ax.set_xlabel('x')
+    ax.set_ylabel('y')
+    ax.set_zlabel('f(x, y)')
+
+    plt.title(title)
     plt.show()
 
 
