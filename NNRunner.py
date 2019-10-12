@@ -54,5 +54,4 @@ main()
 
 # TODO: c) Look for more functions
 # TODO: d) Deal with insufficient samples for functions like Easom - Don't use these
-# TODO: d) With Latex producer, sort alphabetically and remove duplicate functions
 # TODO: e) Plot true surface against NN predicted surface

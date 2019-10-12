@@ -15,6 +15,6 @@ def build_model(train_dataset, optimizer, hidden_neurons, show_summary=False):
     if show_summary:
         print(model.summary())
 
-    keras.plot_model(model, to_file='model_plot.png', show_shapes=True, show_layers=True)
+    keras.utils.plot_model(model, to_file='model_plot.png', show_shapes=True, rankdir='LR')
 
     return model
