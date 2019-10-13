@@ -1,7 +1,7 @@
 import tensorflow as tf
 
 
-def sgd_optimizer(learning_rate=0.001):
+def sgd_optimizer(learning_rate=0.01):
     return tf.optimizers.SGD(learning_rate), learning_rate, "SGD"
 
 

@@ -4,7 +4,7 @@ from tensorflow.keras import layers
 
 def build_model(train_dataset, optimizer, hidden_neurons, show_summary=False):
     model = keras.Sequential([
-        layers.Dense(hidden_neurons, input_shape=[len(train_dataset.keys())]),
+        layers.Dense(hidden_neurons, activation='sigmoid', input_shape=[len(train_dataset.keys())]),
         layers.Dense(1, activation='sigmoid')
     ])
 

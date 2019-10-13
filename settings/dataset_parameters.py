@@ -66,7 +66,51 @@ def parse_function(function):
         return function_params.matyas()
     if function == 'mccormick':
         return function_params.mccormick()
-    return function_params.ackley_n2()
+    if function == 'michalewicz':
+        return function_params.michalewicz()
+    if function == 'periodic':
+        return function_params.periodic()
+    if function == 'qing':
+        return function_params.qing()
+    if function == 'rastrigin':
+        return function_params.rastrigin()
+    if function == 'ridge':
+        return function_params.ridge()
+    if function == 'rosenbrock':
+        return function_params.rosenbrock()
+    if function == 'salomon':
+        return function_params.salomon()
+    if function == 'schaffer_n2':
+        return function_params.schaffer_n2()
+    if function == 'schaffer_n3':
+        return function_params.schaffer_n3()
+    if function == 'schwefel_220':
+        return function_params.schwefel_220()
+    if function == 'schwefel_222':
+        return function_params.schwefel_222()
+    if function == 'schwefel_223':
+        return function_params.schwefel_223()
+    if function == 'shubert_3':
+        return function_params.shubert_3()
+    if function == 'shubert':
+        return function_params.shubert()
+    if function == 'sphere':
+        return function_params.sphere()
+    if function == 'styblinski_tang':
+        return function_params.styblinski_tang()
+    if function == 'sum_squares':
+        return function_params.sum_squares()
+    if function == 'three_hump_camel':
+        return function_params.three_hump_camel()
+    if function == 'xin_she_yang_n2':
+        return function_params.xin_she_yang_n2()
+    if function == 'xin_she_yang_n3':
+        return function_params.xin_she_yang_n3()
+    if function == 'xin_she_yang_n4':
+        return function_params.xin_she_yang_n4()
+    if function == 'zakharov':
+        return function_params.zakharov()
+    raise Exception('Function could not be found')
 
 
 class DatasetParameters:

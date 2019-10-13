@@ -225,3 +225,157 @@ def mccormick():
     y_range = (-3, 3)
     func = settings.function_definitions.mccormick
     return func, x_range, y_range, "McCormick"
+
+
+def michalewicz():
+    x_range = (0, np.pi)
+    y_range = x_range
+    func = settings.function_definitions.michalewicz
+    return func, x_range, y_range, "Michalewicz"
+
+
+def periodic():
+    x_range = (-10, 10)
+    y_range = x_range
+    func = settings.function_definitions.periodic
+    return func, x_range, y_range, "Periodic"
+
+
+def qing():
+    x_range = (-500, 500)
+    y_range = x_range
+    func = settings.function_definitions.qing
+    return func, x_range, y_range, "Qing"
+
+
+def rastrigin():
+    x_range = (-5.12, 5.12)
+    y_range = x_range
+    func = settings.function_definitions.rastrigin
+    return func, x_range, y_range, "Rastrigin"
+
+
+def ridge():
+    x_range = (-5, 5)
+    y_range = x_range
+    func = settings.function_definitions.ridge
+    return func, x_range, y_range, "Ridge"
+
+
+def rosenbrock():
+    x_range = (-5, 10)
+    y_range = x_range
+    func = settings.function_definitions.rosenbrock
+    return func, x_range, y_range, "Rosenbrock"
+
+
+def salomon():
+    x_range = (-100, 100)
+    y_range = x_range
+    func = settings.function_definitions.salomon
+    return func, x_range, y_range, "Salomon"
+
+
+def schaffer_n2():
+    x_range = (-100, 100)
+    y_range = x_range
+    func = settings.function_definitions.schaffer_n2
+    return func, x_range, y_range, "Schaffer N.2"
+
+
+def schaffer_n3():
+    x_range = (-100, 100)
+    y_range = x_range
+    func = settings.function_definitions.schaffer_n3
+    return func, x_range, y_range, "Schaffer N.3"
+
+
+def schwefel_220():
+    x_range = (-100, 100)
+    y_range = x_range
+    func = settings.function_definitions.schwefel_220
+    return func, x_range, y_range, "Schwefel 2.20"
+
+
+def schwefel_222():
+    x_range = (-100, 100)
+    y_range = x_range
+    func = settings.function_definitions.schwefel_222
+    return func, x_range, y_range, "Schwefel 2.22"
+
+
+def schwefel_223():
+    x_range = (-10, 10)
+    y_range = x_range
+    func = settings.function_definitions.schwefel_223
+    return func, x_range, y_range, "Schwefel 2.23"
+
+
+def shubert_3():
+    x_range = (-10, 10)
+    y_range = x_range
+    func = settings.function_definitions.shubert_3
+    return func, x_range, y_range, "Shubert 3"
+
+
+def shubert():
+    x_range = (-10, 10)
+    y_range = x_range
+    func = settings.function_definitions.shubert
+    return func, x_range, y_range, "Shubert"
+
+
+def sphere():
+    x_range = (-5.12, 5.12)
+    y_range = x_range
+    func = settings.function_definitions.sphere
+    return func, x_range, y_range, "Sphere"
+
+
+def styblinski_tang():
+    x_range = (-5, 5)
+    y_range = x_range
+    func = settings.function_definitions.styblinski_tang
+    return func, x_range, y_range, "Styblinski-Tang"
+
+
+def sum_squares():
+    x_range = (-10, 10)
+    y_range = x_range
+    func = settings.function_definitions.sum_squares
+    return func, x_range, y_range, "Sum Squares"
+
+
+def three_hump_camel():
+    x_range = (-5, 5)
+    y_range = x_range
+    func = settings.function_definitions.three_hump_camel
+    return func, x_range, y_range, "Three-Hump Camel"
+
+
+def xin_she_yang_n2():
+    x_range = (-2 * np.pi, 2 * np.pi)
+    y_range = x_range
+    func = settings.function_definitions.xin_she_yang_n2
+    return func, x_range, y_range, "Xin-She Yang N.2"
+
+
+def xin_she_yang_n3():
+    x_range = (-2 * np.pi, 2 * np.pi)
+    y_range = x_range
+    func = settings.function_definitions.xin_she_yang_n3
+    return func, x_range, y_range, "Xin-She Yang N.3"
+
+
+def xin_she_yang_n4():
+    x_range = (-10, 10)
+    y_range = x_range
+    func = settings.function_definitions.xin_she_yang_n4
+    return func, x_range, y_range, "Xin-She Yang N.4"
+
+
+def zakharov():
+    x_range = (-5, 10)
+    y_range = x_range
+    func = settings.function_definitions.zakharov
+    return func, x_range, y_range, "Zakharov"
