@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 
 def fit_model(model, train_dataset, train_labels, num_epochs, show_history):
     early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', patience=50)
-    history = model.fit(train_dataset,
-                        train_labels,
+    history = model.fit(train_dataset.to_numpy(),
+                        train_labels.to_numpy(),
                         epochs=num_epochs,
                         validation_split=0.2,
                         verbose=show_history,
@@ -49,7 +49,7 @@ def try_out_model(model, train_data):
 
 
 def evaluate_model(model, test_dataset, test_labels, show_training_process):
-    loss, mae, mse = model.evaluate(test_dataset, test_labels, verbose=show_training_process)
+    loss, mae, mse = model.evaluate(test_dataset.to_numpy(), test_labels.to_numpy(), verbose=show_training_process)
 
     print('Testing set loss, mae, mse:', loss, mae, mse)
 

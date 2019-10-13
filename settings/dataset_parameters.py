@@ -44,6 +44,8 @@ def parse_function(function):
         return function_params.easom()
     if function == 'egg_crate':
         return function_params.egg_crate()
+    if function == 'egg_holder':
+        return function_params.egg_holder()
     if function == 'exponential':
         return function_params.exponential()
     if function == 'goldstein_price':
@@ -54,6 +56,16 @@ def parse_function(function):
         return function_params.himmelblau()
     if function == 'holder_table':
         return function_params.holder_table()
+    if function == 'keane':
+        return function_params.keane()
+    if function == 'leon':
+        return function_params.leon()
+    if function == 'levi_n13':
+        return function_params.levi_n13()
+    if function == 'matyas':
+        return function_params.matyas()
+    if function == 'mccormick':
+        return function_params.mccormick()
     return function_params.ackley_n2()
 
 

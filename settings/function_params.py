@@ -150,6 +150,13 @@ def egg_crate():
     return func, x_range, y_range, "Egg Crate"
 
 
+def egg_holder():
+    x_range = (-512, 512)
+    y_range = x_range
+    func = settings.function_definitions.egg_holder
+    return func, x_range, y_range, "Egg Holder"
+
+
 def exponential():
     x_range = (-1, 1)
     y_range = x_range
@@ -183,3 +190,38 @@ def holder_table():
     y_range = x_range
     func = settings.function_definitions.holder_table
     return func, x_range, y_range, "Holder-Table"
+
+
+def keane():
+    x_range = (0, 10)
+    y_range = x_range
+    func = settings.function_definitions.keane
+    return func, x_range, y_range, "Keane"
+
+
+def leon():
+    x_range = (0, 10)
+    y_range = x_range
+    func = settings.function_definitions.leon
+    return func, x_range, y_range, "Leon"
+
+
+def levi_n13():
+    x_range = (-10, 10)
+    y_range = x_range
+    func = settings.function_definitions.levi_n13
+    return func, x_range, y_range, "Levi N.13"
+
+
+def matyas():
+    x_range = (-10, 10)
+    y_range = x_range
+    func = settings.function_definitions.matyas
+    return func, x_range, y_range, "Matyas"
+
+
+def mccormick():
+    x_range = (-1.5, 4)
+    y_range = (-3, 3)
+    func = settings.function_definitions.mccormick
+    return func, x_range, y_range, "McCormick"

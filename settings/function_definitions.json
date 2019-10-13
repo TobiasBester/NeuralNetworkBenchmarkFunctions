@@ -231,6 +231,17 @@
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/eggcratefcn.html"
   },
   {
+    "name": "Egg Holder",
+    "dimensions": "2",
+    "non-separable": "",
+    "Unimodal": "False",
+    "Convex": "False",
+    "Differentiable": "",
+    "Hardness": 18.92,
+    "Notes": "Many Local Minima",
+    "Link": "http://infinity77.net/global_optimization/test_functions_nd_E.html#go_benchmark.EggHolder"
+  },
+  {
     "name": "Exponential",
     "dimensions": "N",
     "non-separable": "True",

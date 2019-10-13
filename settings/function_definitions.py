@@ -112,6 +112,10 @@ def egg_crate(x, y):
     return x ** 2 + y ** 2 + 25 * (sin(x) ** 2 + sin(y) ** 2)
 
 
+def egg_holder(x, y):
+    return -(y + 47) * sin(sqrt(abs(y + x / 2 + 47))) + sin(sqrt(abs(x - (y + 47)))) * (-x)
+
+
 def exponential(x, y):
     return -exp(-0.5 * (x ** 2 + y ** 2))
 
@@ -139,3 +143,23 @@ def himmelblau(x, y):
 
 def holder_table(x, y):
     return -abs(sin(x) * cos(y) * exp(abs(1 - (sqrt(x ** 2 + y ** 2) / pi))))
+
+
+def keane(x, y):
+    return -(sin(x - y) ** 2 * sin(x + y) ** 2) / (sqrt(x ** 2 + y ** 2))
+
+
+def leon(x, y):
+    return 100 * (y - x ** 3) ** 2 + (1 - x) ** 2
+
+
+def levi_n13(x, y):
+    return sin(3 * pi * x) ** 2 + (x - 1) ** 2 * (1 + sin(3 * pi * y) ** 2) + (y - 1) ** 2 * (1 + sin(2 * pi * y) ** 2)
+
+
+def matyas(x, y):
+    return 0.26 * (x ** 2 + y ** 2) - 0.48 * x * y
+
+
+def mccormick(x, y):
+    return sin(x + y) + (x - y) ** 2 - 1.5 * x + 2.5 * y + 1
