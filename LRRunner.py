@@ -15,7 +15,8 @@ def main():
     print('== Objective Function:', data_params.function_name)
 
     if data_params.show_true_function:
-        plot_true_function(data_params.x_range, data_params.y_range, data_params.function_definition)
+        plot_true_function(data_params.x_range, data_params.y_range, data_params.function_definition,
+                           data_params.function_name)
 
     print('== Generating data')
     dataset = generate_random_dataset(

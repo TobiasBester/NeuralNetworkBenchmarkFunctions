@@ -15,9 +15,9 @@ def generate_table(data):
 
     doc = Document(page_numbers=True, geometry_options=geometry_options)
 
-    fmt = 'X[r] X[r] X[r] X[r] X[r]'
+    fmt = 'X[r] X[r] X[r] X[r] X[r] X[r]'
     with doc.create(LongTabu(fmt, spread='0pt')) as data_table:
-        header_row1 = ['Function Name', 'NN MSE', 'NN MSE Stdev', 'LR MSE', 'MSE Index']
+        header_row1 = ['Function Name', 'NN Mean Num Epochs Run', 'NN MSE', 'NN MSE Stdev', 'LR MSE', 'MSE Index']
         data_table.add_row(header_row1, mapper=[bold])
         data_table.add_hline()
         data_table.add_empty_row()

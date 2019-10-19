@@ -19,7 +19,8 @@ def main():
     print('== Objective Function:', data_params.function_name)
 
     if data_params.show_true_function:
-        plot_true_function(data_params.x_range, data_params.y_range, data_params.function_definition)
+        plot_true_function(data_params.x_range, data_params.y_range, data_params.function_definition,
+                           data_params.function_name)
 
     print('== Generating data ==')
     dataset = generate_random_dataset(
@@ -39,15 +40,18 @@ def main():
         save_generated_nn_data_to_file(data_params.function_name, dataset_group)
 
     test_mse_history = []
+    num_epochs_history = []
 
     for idx, seed in enumerate(range(nn_params.starting_seed, nn_params.starting_seed + nn_params.num_seeds)):
         print('\nNN', idx)
-        test_mse, train_history = run_nn(data_params, nn_params, dataset_group, seed)
+        test_mse, train_history, num_epochs_run = run_nn(data_params, nn_params, dataset_group, seed)
 
         test_mse_history.append(test_mse)
+        num_epochs_history.append(num_epochs_run)
 
     print('\nAverage Test MSE:', np.mean(np.array(test_mse_history)))
     print('\nStdev Test MSE:', np.std(np.array(test_mse_history)))
+    print('\nAverage Num Epochs Run:', np.mean(np.array(num_epochs_history)))
 
 
 main()

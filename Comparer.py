@@ -10,7 +10,6 @@ from data_util.data_saver import save_generated_nn_data_to_file, save_combined_r
 from data_util.data_setup import data_setup, nn_setup
 from data_util.data_splitter import split_data_for_lr, split_data_for_nn
 
-
 if __name__ == '__main__':
     print('COMPARING METHODS')
 
@@ -24,7 +23,8 @@ if __name__ == '__main__':
     nn_params = nn_setup()
 
     if data_params.show_true_function:
-        plot_true_function(data_params.x_range, data_params.y_range, data_params.function_definition)
+        plot_true_function(data_params.x_range, data_params.y_range, data_params.function_definition,
+                           data_params.function_name)
 
     print('== Generating data ==')
     dataset = generate_random_dataset(
@@ -51,21 +51,25 @@ if __name__ == '__main__':
     lr_train_mse, lr_test_mse = run_lr(data_params, lr_dataset_group)
 
     test_mse_history = []
+    num_epochs_history = []
     for idx, seed in enumerate(range(nn_params.starting_seed, nn_params.starting_seed + nn_params.num_seeds)):
         print('\nNN', idx)
-        nn_test_mse, nn_train_history = run_nn(data_params, nn_params, nn_dataset_group, seed)
+        nn_test_mse, nn_train_history, num_epochs_run = run_nn(data_params, nn_params, nn_dataset_group, seed)
 
         if data_params.show_predicted_vs_true:
             plot_nn_and_lr_mse(lr_train_mse, lr_test_mse, nn_train_history)
         test_mse_history.append(nn_test_mse)
+        num_epochs_history.append(num_epochs_run)
 
     average_nn_test_mse = np.mean(np.array(test_mse_history))
     stdev_nn_test_mse = np.std(np.array(test_mse_history))
+    average_nn_epochs_run = np.mean(np.array(num_epochs_history))
 
     mse_index = lr_test_mse / average_nn_test_mse - 1
 
     save_combined_results_to_file(
         data_params.function_name,
+        average_nn_epochs_run,
         average_nn_test_mse,
         stdev_nn_test_mse,
         lr_test_mse,

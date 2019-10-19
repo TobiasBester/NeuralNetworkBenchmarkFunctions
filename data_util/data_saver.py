@@ -62,10 +62,7 @@ def save_generated_data_to_file(x, y, func, f):
         f.write("%s %s %s\n" % (x[i], y[i], func[i]))
 
 
-def save_combined_results_to_file(func_name, nn_mse, nn_mse_stdev, lr_mse, mse_index):
-    mean_precision = 6
-    stdev_precision = 4
-    index_precision = 6
+def save_combined_results_to_file(func_name, nn_epochs_run, nn_mse, nn_mse_stdev, lr_mse, mse_index):
     file_path = './results/comparer_results'
     check_directory(file_path)
 
@@ -73,8 +70,9 @@ def save_combined_results_to_file(func_name, nn_mse, nn_mse_stdev, lr_mse, mse_i
 
     f = open(file_name, 'a+')
 
-    line = "{}|{}|{}|{}|{}\n".format(func_name, round(nn_mse, mean_precision), round(nn_mse_stdev, stdev_precision),
-                                     round(lr_mse, mean_precision), round(mse_index, index_precision))
+    line = "{}|{}|{}|{}|{}|{}\n".format(func_name, round(nn_epochs_run, 2), round(nn_mse, 6),
+                                        round(nn_mse_stdev, 4),
+                                        round(lr_mse, 6), round(mse_index, 4))
 
     f.write(line)
     f.close()

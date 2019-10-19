@@ -9,7 +9,7 @@ from mpl_toolkits.mplot3d import Axes3D
 from data_util.data_saver import check_directory
 
 
-def plot_true_function(x_range, y_range, benchmark_func):
+def plot_true_function(x_range, y_range, benchmark_func, func_name):
     x_step = (np.abs(x_range[0] - x_range[1])) / 2500
     x = np.arange(x_range[0], x_range[1], x_step)
 
@@ -18,9 +18,11 @@ def plot_true_function(x_range, y_range, benchmark_func):
 
     z = benchmark_func(x, y)
 
-    plot_2d_graph(x, z, 'True function in 2D')
-    plt.show()
-    plot_3d_graph(x, y, benchmark_func, 'True function in 3D')
+    path = './results/true_functions/'
+    check_directory(path)
+    save_plot_to = "{}{}.png".format(path, func_name)
+
+    plot_3d_graph(x, y, benchmark_func, 'True function in 3D', save_plot_to)
 
 
 def plot_2d_graph(x, z, title='', color='blue'):
@@ -30,7 +32,7 @@ def plot_2d_graph(x, z, title='', color='blue'):
     plt.title(title)
 
 
-def plot_3d_graph(x, y, benchmark_func, title):
+def plot_3d_graph(x, y, benchmark_func, title, dest=''):
     fig = plt.figure()
     ax = fig.gca(projection='3d')
 
@@ -42,6 +44,9 @@ def plot_3d_graph(x, y, benchmark_func, title):
     fig.colorbar(surface, shrink=0.5, aspect=5)
 
     plt.title(title)
+
+    if dest:
+        plt.savefig(dest, format='png')
 
     plt.show()
 
@@ -57,7 +62,7 @@ def plot_2d_predicted_vs_true(x, y, predictions, true):
     plt.show()
 
 
-def plot_3d_predicted_vs_true(x, y, predictions, true, title='Predicted function (R) vs True function (G)'):
+def plot_3d_predicted_vs_true(x, y, predictions, true, title='Predicted function (R) vs True function (G)', dest=''):
 
     fig = plt.figure()
     ax = fig.add_subplot(projection='3d')
@@ -72,10 +77,14 @@ def plot_3d_predicted_vs_true(x, y, predictions, true, title='Predicted function
     ax.set_zlabel('f(x, y)')
 
     plt.title(title)
+
+    if dest:
+        plt.savefig(dest, format='png')
+
     plt.show()
 
 
-def save_nn_results_to_file(nn_params, data_params, train_mse, test_mse):
+def save_nn_results_to_file(nn_params, data_params, train_mse, test_mse, num_epochs):
     results_path = './results/nn_results'
     check_directory(results_path)
 
@@ -85,9 +94,10 @@ def save_nn_results_to_file(nn_params, data_params, train_mse, test_mse):
     f.write(
         "===== New Run at %s =====\n"
         "Function: %s\n"
-        "Num epochs: %d\n"
+        "Max epochs: %d\n"
         "Optimizer: %s\n"
         "Num. hidden neurons: %d\n"
+        "Num. epochs run: %d\n"
         "- Results -\n"
         "Train MSE: %.5f\n"
         "Test MSE: %.8f\n" %
@@ -97,6 +107,7 @@ def save_nn_results_to_file(nn_params, data_params, train_mse, test_mse):
             nn_params.num_epochs,
             nn_params.optimizer_name,
             nn_params.hidden_neurons,
+            num_epochs,
             train_mse,
             test_mse)
     )
