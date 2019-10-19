@@ -27,7 +27,8 @@ def main():
         data_params.x_range,
         data_params.y_range,
         data_params.num_samples,
-        data_params.function_definition
+        data_params.function_definition,
+        data_params.seed
     )
 
     print('== Splitting data ==')
