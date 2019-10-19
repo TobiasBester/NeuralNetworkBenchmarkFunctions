@@ -6,6 +6,7 @@ import numpy as np
 
 from mpl_toolkits.mplot3d import Axes3D
 
+from data_util import plot_colors
 from data_util.data_saver import check_directory
 
 
@@ -25,7 +26,7 @@ def plot_true_function(x_range, y_range, benchmark_func, func_name):
     plot_3d_graph(x, y, benchmark_func, 'True function in 3D', save_plot_to)
 
 
-def plot_2d_graph(x, z, title='', color='blue'):
+def plot_2d_graph(x, z, title='', color=plot_colors.BLUE):
     plt.scatter(x, z, color=color)
     plt.xlabel('x')
     plt.ylabel('f(x, y)')
@@ -52,26 +53,25 @@ def plot_3d_graph(x, y, benchmark_func, title, dest=''):
 
 
 def plot_2d_predicted_vs_true(x, y, predictions, true):
-
-    plot_2d_graph(x, predictions, color='red')
-    plot_2d_graph(x, true, 'Predicted f(x) (R) vs Actual f(x) (G)', 'green')
+    plot_2d_graph(x, predictions, color=plot_colors.BLUE)
+    plot_2d_graph(x, true, 'Predicted f(x) (Red) vs Actual f(x) (Blue)', plot_colors.RED)
     plt.show()
 
-    plot_2d_graph(y, predictions, color='red')
-    plot_2d_graph(y, true, 'Predicted f(y) (R) vs Actual f(y) (G)', 'green')
+    plot_2d_graph(y, predictions, color=plot_colors.BLUE)
+    plot_2d_graph(y, true, 'Predicted f(y) (Red) vs Actual f(y) (Blue)', plot_colors.RED)
     plt.show()
 
 
-def plot_3d_predicted_vs_true(x, y, predictions, true, title='Predicted function (R) vs True function (G)', dest=''):
-
+def plot_3d_predicted_vs_true(x, y, predictions, true, title='Predicted function (Blue) vs True function (Purple)',
+                              dest=''):
     fig = plt.figure()
     ax = fig.add_subplot(projection='3d')
-    ax.scatter(x, y, predictions, color='red')
+    ax.scatter(x, y, predictions, color=plot_colors.BLUE)
     ax.set_xlabel('x')
     ax.set_ylabel('y')
     ax.set_zlabel('f(x, y)')
 
-    ax.scatter(x, y, true, color='green', marker='^')
+    ax.scatter(x, y, true, color=plot_colors.PURPLE, marker='^')
     ax.set_xlabel('x')
     ax.set_ylabel('y')
     ax.set_zlabel('f(x, y)')
@@ -145,11 +145,11 @@ def plot_nn_and_lr_mse(lr_train_mse, lr_test_mse, nn_train_history):
     plt.xlabel('Epoch')
     plt.ylabel('Mean Squared Error')
 
-    plt.plot(nn_train_history['mse'], color='green', label='NN Training MSE')
-    plt.plot(nn_train_history['val_mse'], color='navy', label='NN Validation MSE')
+    plt.plot(nn_train_history['mse'], color=plot_colors.PURPLE, label='NN Training MSE')
+    plt.plot(nn_train_history['val_mse'], color=plot_colors.BLUE, label='NN Validation MSE')
 
-    plt.axhline(y=lr_train_mse, color='indianred', label='LR Train MSE')
-    plt.axhline(y=lr_test_mse, color='goldenrod', label='LR Test MSE')
+    plt.axhline(y=lr_train_mse, color=plot_colors.RED, label='LR Train MSE')
+    plt.axhline(y=lr_test_mse, color=plot_colors.CREAM, label='LR Test MSE')
 
     plt.legend()
     plt.show()
