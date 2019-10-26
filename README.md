@@ -7,9 +7,9 @@
 
 ## Installation
 
-- Run the following command in the root directory of the project
+- Run the following command in the root directory of the project (not tested)
 
-    - `pip install requirements.txt`
+    - `python setup.py`
     
 ## Usage
 
@@ -20,8 +20,8 @@ suboptimal performance.
 The optimizer and function parameter options are all provided and commented out. To change these parameters, uncomment
 the option of your choice and ensure that only one of each parameter is uncommented.
 
-Running `python LinearRegression.py` runs the Linear Regression program for the specified problem function.
+Running `python LRRunner.py` runs the Linear Regression program for the specified problem function.
 
-Running `python NeuralNetwork.py` runs the Neural Network program for the specified problem function.
+Running `python NNRunner.py` runs the Neural Network program for the specified problem function.
 
 Running `python Comparer.py` runs the NeuralNetwork program and then the LinearRegression program.
