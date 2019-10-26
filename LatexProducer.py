@@ -33,7 +33,7 @@ def dict_to_list(data):
     return [data[key] for key in data]
 
 
-def latex():
+def get_data():
     file_name = './results/comparer_results/results.txt'
 
     f = open(file_name, 'r')
@@ -46,7 +46,11 @@ def latex():
     data = sort_dict_keys(data)
     data = dict_to_list(data)
 
-    generate_table(data)
+    return data
+
+
+def latex():
+    generate_table(get_data())
 
 
 latex()

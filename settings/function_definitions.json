@@ -121,7 +121,7 @@
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/bohachevskyn1fcn.html"
   },
   {
-    "name": "Alpine N.1",
+    "name": "Bohachevsky N.2",
     "dimensions": "N",
     "non-separable": "True",
     "Unimodal": "False",
