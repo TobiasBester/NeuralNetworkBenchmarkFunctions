@@ -18,7 +18,7 @@
     "Convex": "True",
     "Differentiable": "True",
     "Hardness": -1,
-    "Notes": "",
+    "Notes": "Steep Drop",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/ackleyn2fcn.html"
   },
   {
@@ -40,7 +40,7 @@
     "Convex": "False",
     "Differentiable": "True",
     "Hardness": -1,
-    "Notes": "",
+    "Notes": "Many Local Minima",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/ackleyn4fcn.html"
   },
   {
@@ -84,7 +84,7 @@
     "Convex": "False",
     "Differentiable": "False",
     "Hardness": 50,
-    "Notes": "",
+    "Notes": "Bowl-shaped",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/bartelsconnfcn.html"
   },
   {
@@ -95,7 +95,7 @@
     "Convex": "False",
     "Differentiable": "False",
     "Hardness": 66.25,
-    "Notes": "",
+    "Notes": "Valley-shaped",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/bealefcn.html"
   },
   {
@@ -117,7 +117,7 @@
     "Convex": "True",
     "Differentiable": "False",
     "Hardness": 81.75,
-    "Notes": "Bowl Shaped",
+    "Notes": "Bowl-shaped",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/bohachevskyn1fcn.html"
   },
   {
@@ -139,7 +139,7 @@
     "Convex": "True",
     "Differentiable": "True",
     "Hardness": -1,
-    "Notes": "Plate Shaped",
+    "Notes": "Plate-shaped",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/boothfcn.html"
   },
   {
@@ -150,7 +150,7 @@
     "Convex": "True",
     "Differentiable": "True",
     "Hardness": 81.92,
-    "Notes": "",
+    "Notes": "Bowl-shaped",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/brentfcn.html"
   },
   {
@@ -161,7 +161,7 @@
     "Convex": "True",
     "Differentiable": "True",
     "Hardness": 82.17,
-    "Notes": "",
+    "Notes": "Bowl-shaped",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/brownfcn.html"
   },
   {
@@ -172,7 +172,7 @@
     "Convex": "True",
     "Differentiable": "False",
     "Hardness": 6.83,
-    "Notes": "Non-Scalable",
+    "Notes": "",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/bukinn6fcn.html"
   },
   {
@@ -249,7 +249,7 @@
     "Convex": "True",
     "Differentiable": "True",
     "Hardness": 85.33,
-    "Notes": "",
+    "Notes": "Bowl-shaped",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/exponentialfcn.html"
   },
   {
@@ -304,7 +304,7 @@
     "Convex": "False",
     "Differentiable": "True",
     "Hardness": 92.83,
-    "Notes": "",
+    "Notes": "Many Local Minima",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/kealefcn.html"
   },
   {
@@ -337,7 +337,7 @@
     "Convex": "True",
     "Differentiable": "True",
     "Hardness": 72.00,
-    "Notes": "Plate Shaped",
+    "Notes": "Plate-shaped",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/matyasfcn.html"
   },
   {
@@ -348,7 +348,7 @@
     "Convex": "True",
     "Differentiable": "True",
     "Hardness": 81.5,
-    "Notes": "Non-Scalable, Plate Shaped",
+    "Notes": "Plate-shaped",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/mccormickfcn.html"
   },
   {
@@ -359,7 +359,7 @@
     "Convex": "",
     "Differentiable": "",
     "Hardness": 81.25,
-    "Notes": "",
+    "Notes": "Steep Drop",
     "Link": "https://www.sfu.ca/~ssurjano/michal.html"
   },
   {
@@ -381,7 +381,7 @@
     "Convex": "False",
     "Differentiable": "True",
     "Hardness": 73.17,
-    "Notes": "",
+    "Notes": "Bowl-shaped",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/qingfcn.html"
   },
   {
@@ -414,7 +414,7 @@
     "Convex": "True",
     "Differentiable": "True",
     "Hardness": 44.17,
-    "Notes": "Valley Shaped",
+    "Notes": "",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/rosenbrockfcn.html"
   },
   {
@@ -425,7 +425,7 @@
     "Convex": "False",
     "Differentiable": "True",
     "Hardness": 10.33,
-    "Notes": "",
+    "Notes": "Valley-shaped",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/salomonfcn.html"
   },
   {
@@ -480,7 +480,7 @@
     "Convex": "True",
     "Differentiable": "False",
     "Hardness": 59.33,
-    "Notes": "Many Local Minima",
+    "Notes": "Valley-shaped",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/schwefel220fcn.html"
   },
   {
@@ -513,7 +513,7 @@
     "Convex": "True",
     "Differentiable": "True",
     "Hardness": -1,
-    "Notes": "Many Local Minima",
+    "Notes": "Bowl-shaped",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/schwefel223fcn.html"
   },
   {
@@ -557,7 +557,7 @@
     "Convex": "True",
     "Differentiable": "True",
     "Hardness": 82.75,
-    "Notes": "Bowl Shaped",
+    "Notes": "Bowl-shaped",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/spherefcn.html"
   },
   {
@@ -579,7 +579,7 @@
     "Convex": "True",
     "Differentiable": "True",
     "Hardness": -1,
-    "Notes": "Bowl Shaped",
+    "Notes": "Bowl-shaped",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/sumsquaresfcn.html"
   },
   {
@@ -590,7 +590,7 @@
     "Convex": "False",
     "Differentiable": "True",
     "Hardness": 78.83,
-    "Notes": "Valley Shaped",
+    "Notes": "Valley-shaped",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/threehumpcamelfcn.html"
   },
   {
@@ -612,7 +612,7 @@
     "Convex": "False",
     "Differentiable": "True",
     "Hardness": 1.08,
-    "Notes": "Parametric",
+    "Notes": "Steep Drop",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/xinsheyangn3fcn.html"
   },
   {
@@ -623,7 +623,7 @@
     "Convex": "False",
     "Differentiable": "False",
     "Hardness": 26.33,
-    "Notes": "",
+    "Notes": "Many Local Minima",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/xinsheyangn4fcn.html"
   },
   {
@@ -634,7 +634,7 @@
     "Convex": "True",
     "Differentiable": "False",
     "Hardness": 82.33,
-    "Notes": "Plate Shaped",
+    "Notes": "Plate-shaped",
     "Link": "http://benchmarkfcns.xyz/benchmarkfcns/zakharov.html"
   }
 ]

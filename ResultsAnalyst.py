@@ -35,6 +35,8 @@ def get_grouper(group_type):
         return group_results_by_convex
     if group_type == 'dif':
         return group_results_by_differentiable
+    if group_type == 'shape':
+        return group_results_by_shape
     return False
 
 
@@ -45,6 +47,23 @@ def group_results_by_nth_col(data, n, key):
     group1.extend(group2)
 
     return group1
+
+
+def group_results_by_shape(data):
+    plate = [d for d in data if d[-1] == 'Plate-shaped']    # 5 functions
+    bowl = [d for d in data if d[-1] == 'Bowl-shaped']    # 9 functions
+    valley = [d for d in data if d[-1] == 'Valley-shaped']    # 3 functions
+    many_local_minima = [d for d in data if d[-1] == 'Many Local Minima']    # 19 functions
+    steep_drop = [d for d in data if d[-1] == 'Steep Drop']    # 4 functions
+    asymmetric = [d for d in data if d[-1] == '']    # 17 functions
+
+    plate.extend(bowl)
+    plate.extend(valley)
+    plate.extend(many_local_minima)
+    plate.extend(steep_drop)
+    plate.extend(asymmetric)
+
+    return plate
 
 
 def group_results_by_dimensionality(data):
@@ -124,22 +143,24 @@ if __name__ == '__main__':
     plot_target = './results/mse_index_plots/'
     check_directory(plot_target)
 
-    grouper = get_grouper('dif')
+    prop = ''
+
+    grouper = get_grouper(prop)
 
     results_by_msei = sort_results_by_mse_index(results)
     if grouper:
         results_by_msei = grouper(results_by_msei)
     fcns, mse_indices = extract_fcn_and_mse_index(results_by_msei)
-    plot_fcns(fcns, mse_indices, plot_target + 'mse_sorted.png')
+    plot_fcns(fcns, mse_indices, plot_target + prop + 'mse_sorted.png')
 
     results_by_nn_mse = sort_results_by_nn_mse(results)
     if grouper:
         results_by_nn_mse = grouper(results_by_nn_mse)
     fcns, nn_mse = extract_fcn_and_nn_mse(results_by_nn_mse)
-    plot_fcns(fcns, nn_mse, plot_target + 'nn_mse_sorted.png', 'NN MSE')
+    plot_fcns(fcns, nn_mse, plot_target + prop + 'nn_mse_sorted.png', 'NN MSE')
 
     results_by_lr_mse = sort_results_by_lr_mse(results)
     if grouper:
         results_by_lr_mse = grouper(results_by_lr_mse)
     fcns, lr_mse = extract_fcn_and_lr_mse(results_by_lr_mse)
-    plot_fcns(fcns, lr_mse, plot_target + 'lr_mse_sorted.png', 'LR MSE')
+    plot_fcns(fcns, lr_mse, plot_target + prop + 'lr_mse_sorted.png', 'LR MSE')
